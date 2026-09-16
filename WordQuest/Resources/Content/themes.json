@@ -1,0 +1,10 @@
+[
+  { "id": "animals",   "name": "Animals",        "icon": "pawprint.fill",             "colorPrimary": "#F4A261", "colorSecondary": "#E76F51" },
+  { "id": "geography", "name": "Geography",      "icon": "globe.americas.fill",       "colorPrimary": "#2A9D8F", "colorSecondary": "#264653" },
+  { "id": "movies",    "name": "Movies & TV",    "icon": "film.fill",                 "colorPrimary": "#E76F51", "colorSecondary": "#9D4EDD" },
+  { "id": "science",   "name": "Science",        "icon": "atom",                      "colorPrimary": "#3A86FF", "colorSecondary": "#4361EE" },
+  { "id": "sports",    "name": "Sports",         "icon": "sportscourt.fill",          "colorPrimary": "#06D6A0", "colorSecondary": "#118AB2" },
+  { "id": "food",      "name": "Food & Cooking", "icon": "fork.knife",                "colorPrimary": "#FFB703", "colorSecondary": "#FB8500" },
+  { "id": "history",   "name": "History",        "icon": "building.columns.fill",     "colorPrimary": "#8D5A97", "colorSecondary": "#5E548E" },
+  { "id": "music",     "name": "Music",          "icon": "music.note",                "colorPrimary": "#EF476F", "colorSecondary": "#F72585" }
+]

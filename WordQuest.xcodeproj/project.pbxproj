@@ -1,0 +1,924 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		00A5492F956BDC6DE6DE3A27 /* SeededGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 924C794BD611A3437F977BC4 /* SeededGenerator.swift */; };
+		022C5536BDFAD01091E1EB96 /* SettingsStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0EB3364EB7E33E253D874B73 /* SettingsStore.swift */; };
+		06BE06BAD5D662040410776E /* CoreHaptics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5362F8488E0D91BA800EDAA2 /* CoreHaptics.framework */; };
+		0B27D55AFD427C225D3401F2 /* TriviaActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F90ECAA77A4CFCECFA444C /* TriviaActivityManager.swift */; };
+		1026EEA8CD44A7D927216436 /* words_science.json in Resources */ = {isa = PBXBuildFile; fileRef = 3070D60CBEB480CEEC85D704 /* words_science.json */; };
+		103E86CDFFB3B20FF204B9A1 /* MultiplayerRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1282DD331A55E309789CA455 /* MultiplayerRoomView.swift */; };
+		1BA2F2901656970931E45CC5 /* MultiplayerLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE4F6EFD328F990EBBB27CE /* MultiplayerLobbyView.swift */; };
+		2150794C660C255CE23F3928 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06AA8FDECC3E60FCB871EDD4 /* GameKit.framework */; };
+		215637B2F880F04000AA96A4 /* LevelProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC99756E71A7AEEA26D09F /* LevelProgress.swift */; };
+		239AC8F9209496961A9F6C76 /* words_geography.json in Resources */ = {isa = PBXBuildFile; fileRef = AC2474798926511DC43D8CB6 /* words_geography.json */; };
+		2423D81D1FE9015D67C89A6B /* trivia_sports.json in Resources */ = {isa = PBXBuildFile; fileRef = 30E928C461E5AFFB3E8FF0DE /* trivia_sports.json */; };
+		25CAE0BD928B45EC9401DC87 /* WordSearchModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A659B7231BC5FEA5E9FA0E8 /* WordSearchModels.swift */; };
+		28BE808E3A047A7A01E7A70F /* MultiplayerModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = CA59FC796EF4A3F6C10FEA64 /* MultiplayerModels.swift */; };
+		2DD99B23F7CA80225016D51A /* TriviaActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3A6C62F495E2B3C42CEE50 /* TriviaActivityAttributes.swift */; };
+		35EED5FF263A23CB4949E13F /* TriviaViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F05F59A29322BF6343168FEF /* TriviaViewModel.swift */; };
+		361606809641FFFF9C119600 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 98D8110E25B0A3FD07F576ED /* Assets.xcassets */; };
+		366972C98E06B1B03D21C1F8 /* words_history.json in Resources */ = {isa = PBXBuildFile; fileRef = 6454CDCA4A99DA631C99FF1D /* words_history.json */; };
+		3B1C359551FD906882355621 /* trivia_science.json in Resources */ = {isa = PBXBuildFile; fileRef = 374CE0BC47419085ED1475C1 /* trivia_science.json */; };
+		3B2705BF281195B0E96AB30F /* words_music.json in Resources */ = {isa = PBXBuildFile; fileRef = D9B6DF6F924653CEDDF63E41 /* words_music.json */; };
+		3ED6BBCF7C6A838C5AA7816F /* ResultOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650418A2423E0783C8776AF4 /* ResultOverlay.swift */; };
+		3EFD6E8F919F939893F7B642 /* ContentStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA304EA2826F98E7B158E95E /* ContentStore.swift */; };
+		400BDDCAD7D2A496C4C5A467 /* TriviaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C1FFF2BB5A3079D6E32588F5 /* TriviaView.swift */; };
+		427C6F768225D4D5F84086B6 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBF3ACE34CFCE509510A3B0 /* Theme.swift */; };
+		4A5750CE79AC496B83BB9CC2 /* TriviaActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D3A6C62F495E2B3C42CEE50 /* TriviaActivityAttributes.swift */; };
+		4D72DADB7EFEA943D0917019 /* StarsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2DC56F60E11D9B900D5E0758 /* StarsView.swift */; };
+		50D422A9D2CF34640D2E37EC /* WordQuestActivityBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC86F431B3B775ED90BD9E51 /* WordQuestActivityBundle.swift */; };
+		5263B71BE739EA29A00D8DDB /* WordSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74999D02D1C87DA06E18A211 /* WordSearchViewModel.swift */; };
+		5538F3354746ECA70EFA9F6D /* ThemeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB19B10AFD80BDFC9BBA85AF /* ThemeSelectView.swift */; };
+		565E0FC8BDA0FD6AE1937384 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B852892C66B598BA1DCDD258 /* HapticsManager.swift */; };
+		599CD04024E9E8B3964D6A14 /* WordQuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC497B02065BC62BDECE02E /* WordQuestApp.swift */; };
+		5DE6A96D5F1AA2A03A93475B /* NativeAdContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8132B70E6CC6349A683AED1 /* NativeAdContainerView.swift */; };
+		5F1FB01704512B08C11E6C77 /* WordSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AED710385DBBFF490FF5F1B /* WordSearchView.swift */; };
+		605EB5A36B25D159636C2D17 /* WordSearchGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F7D8374E02B9F6202D9872 /* WordSearchGenerator.swift */; };
+		6737B76BECEC918B15E81395 /* MultiplayerGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F43F65D7E7B24B6C7932DC /* MultiplayerGameView.swift */; };
+		68819B30DF4233F83D9AA6CA /* words_movies.json in Resources */ = {isa = PBXBuildFile; fileRef = D9CF183493D4B59121ABA72E /* words_movies.json */; };
+		715BAF7EDB9B7BD6F32BA069 /* TriviaModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6D63B261BC2597AE5557D2 /* TriviaModels.swift */; };
+		7277917D8039E3B41B332624 /* HouseAd.swift in Sources */ = {isa = PBXBuildFile; fileRef = E3132AEE2477B209E9128369 /* HouseAd.swift */; };
+		7D9CBEE2005669B3A6BF7BA0 /* words_sports.json in Resources */ = {isa = PBXBuildFile; fileRef = 4BAB03881F7D451E744265ED /* words_sports.json */; };
+		7DBB2151598D9BFFCB6D458E /* MultiplayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96CCAA3849DF4ABE723E9575 /* MultiplayerViewModel.swift */; };
+		7E65EC576F5B8F2F93CC6EBE /* themes.json in Resources */ = {isa = PBXBuildFile; fileRef = 2D30703AC7468C588B4CD271 /* themes.json */; };
+		860B6D9FE7D7810DD09644A8 /* trivia_music.json in Resources */ = {isa = PBXBuildFile; fileRef = FAACEED40DD27EC50F111A8F /* trivia_music.json */; };
+		88EAC24B49085BA7DF7D5ED3 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8218EDA9BD0406A3C63FBF /* Router.swift */; };
+		8923CB7548B854FF211ADDB7 /* trivia_history.json in Resources */ = {isa = PBXBuildFile; fileRef = 10821851697384D320C820B2 /* trivia_history.json */; };
+		89F2B4D931ACB7548EA7FC0E /* TrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D491A3A83976BFD28B88B1 /* TrackingManager.swift */; };
+		8BE7D8AE8EC9BDA11DE93A9D /* LevelCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3FFB5E208125EB7055BF78 /* LevelCatalog.swift */; };
+		92AC64AEA5C4B562119E8173 /* MultiplayerResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F98AF533866EABABE489EC8 /* MultiplayerResultsView.swift */; };
+		97D3E462235709174838B251 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBF3ACE34CFCE509510A3B0 /* Theme.swift */; };
+		98787280D0FDFEFFA5BE2914 /* GentleAdCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965172F308214B8C3BD88E65 /* GentleAdCard.swift */; };
+		A7543A655FDDC9F41E10EA22 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE8B7A3815032C6D6F31B7F /* HomeView.swift */; };
+		AD71DD46FA6728804EEDB935 /* words_food.json in Resources */ = {isa = PBXBuildFile; fileRef = E0252DB5C69917DE5B242C92 /* words_food.json */; };
+		AFB1D171C4DA1103C656AE97 /* words_animals.json in Resources */ = {isa = PBXBuildFile; fileRef = DAEC57D185265A437660F796 /* words_animals.json */; };
+		B115D508CAC2D550A61059A3 /* TriviaLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 504F3D4FEB38AA2D089B7B41 /* TriviaLiveActivity.swift */; };
+		BA34E3D5BC5497EDF5253464 /* trivia_geography.json in Resources */ = {isa = PBXBuildFile; fileRef = 498D94F49A125F5B5DEC221F /* trivia_geography.json */; };
+		BE69F6CA97FBC74860C4C9B4 /* WordSearchGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBF18641A82C5BBBCE863A2A /* WordSearchGridView.swift */; };
+		C1FF31CE2108AB901887FBD1 /* trivia_animals.json in Resources */ = {isa = PBXBuildFile; fileRef = EB447F5736E16A58FF6F17FC /* trivia_animals.json */; };
+		CD95F0280EB637B18081DC53 /* trivia_food.json in Resources */ = {isa = PBXBuildFile; fileRef = 517AC59F53F740EED2771A62 /* trivia_food.json */; };
+		D3168D4A65A174AF851FBCD6 /* trivia_movies.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C45DF678226EA4165DA972B /* trivia_movies.json */; };
+		D63005F6ED683A4E6B28E751 /* ThemeQuickPlaySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B785831F8C26CC2B9151A5DA /* ThemeQuickPlaySheet.swift */; };
+		DBCEB84ED4FFCB7BE623C8A7 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5B4F580EB95F76E08295E /* RootView.swift */; };
+		E2462B69F6845B67EEFC14EE /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFD7D806858BDA9F7144C3C /* AdsManager.swift */; };
+		E358167917410FA7F2B74CA4 /* MultiplayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472668650FBA9C3105B9B35E /* MultiplayerService.swift */; };
+		E4185387D178F0ABCE03767F /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC176DF2D975A7E49E3F057 /* SoundManager.swift */; };
+		E55B72B4823FF103E56B6281 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E757BCB1C3AB396C7B8DA3 /* AppRoute.swift */; };
+		E61B47B8D8CAA4499B500376 /* HapticsPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286B1F54DE3783AF3672344D /* HapticsPlayer.swift */; };
+		E7A83B79AB2CBA3456154980 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1051119DBB9A8D964BBA8B /* AppTrackingTransparency.framework */; };
+		EAFEF805B9C1884079DADD92 /* WordQuestActivity.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DB33CE3445C43BE76F00CD79 /* WordQuestActivity.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		EB0EFEE4800B9C19CC4696A7 /* GameCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9BCE6BEAEFFD546745F621 /* GameCenterManager.swift */; };
+		ED5085299D8069466D3B1932 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 68A3130EEC902464C6DEEF0A /* GoogleMobileAds */; };
+		F381C9D8A79AC6ECB02F0F01 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 712408E7D6F19939356CA0CD /* PrivacyInfo.xcprivacy */; };
+		F53653B15C01634AB54C89FA /* LevelMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACE8A7FA944CC0DADC29E0C /* LevelMapView.swift */; };
+		FDC0B9D04E3833059CA5F417 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C22EAE4A1ED4230863ACBD0 /* SettingsView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		85CC5A33C089C062BD04EAAC /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0EFEE7DBDFD9A18C0F4A6C7A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8372491E060F0E556B62971D;
+			remoteInfo = WordQuestActivity;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2BA9997123298450EFAA4F0C /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				EAFEF805B9C1884079DADD92 /* WordQuestActivity.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		05D491A3A83976BFD28B88B1 /* TrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingManager.swift; sourceTree = "<group>"; };
+		06AA8FDECC3E60FCB871EDD4 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		0A659B7231BC5FEA5E9FA0E8 /* WordSearchModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchModels.swift; sourceTree = "<group>"; };
+		0D3A6C62F495E2B3C42CEE50 /* TriviaActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaActivityAttributes.swift; sourceTree = "<group>"; };
+		0EB3364EB7E33E253D874B73 /* SettingsStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsStore.swift; sourceTree = "<group>"; };
+		10821851697384D320C820B2 /* trivia_history.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = trivia_history.json; sourceTree = "<group>"; };
+		1282DD331A55E309789CA455 /* MultiplayerRoomView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerRoomView.swift; sourceTree = "<group>"; };
+		13F5B4F580EB95F76E08295E /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		1CFCAD33A8FFD4452E7C5D37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		286B1F54DE3783AF3672344D /* HapticsPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsPlayer.swift; sourceTree = "<group>"; };
+		2C45DF678226EA4165DA972B /* trivia_movies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = trivia_movies.json; sourceTree = "<group>"; };
+		2D30703AC7468C588B4CD271 /* themes.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = themes.json; sourceTree = "<group>"; };
+		2DC56F60E11D9B900D5E0758 /* StarsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarsView.swift; sourceTree = "<group>"; };
+		2FB68539067A24A9DCFD2C56 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3070D60CBEB480CEEC85D704 /* words_science.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_science.json; sourceTree = "<group>"; };
+		30E928C461E5AFFB3E8FF0DE /* trivia_sports.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = trivia_sports.json; sourceTree = "<group>"; };
+		31DC99756E71A7AEEA26D09F /* LevelProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelProgress.swift; sourceTree = "<group>"; };
+		34F43F65D7E7B24B6C7932DC /* MultiplayerGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerGameView.swift; sourceTree = "<group>"; };
+		374CE0BC47419085ED1475C1 /* trivia_science.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = trivia_science.json; sourceTree = "<group>"; };
+		3BBF3ACE34CFCE509510A3B0 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		472668650FBA9C3105B9B35E /* MultiplayerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerService.swift; sourceTree = "<group>"; };
+		498D94F49A125F5B5DEC221F /* trivia_geography.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = trivia_geography.json; sourceTree = "<group>"; };
+		4AE4F6EFD328F990EBBB27CE /* MultiplayerLobbyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerLobbyView.swift; sourceTree = "<group>"; };
+		4B8218EDA9BD0406A3C63FBF /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		4BAB03881F7D451E744265ED /* words_sports.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_sports.json; sourceTree = "<group>"; };
+		4C22EAE4A1ED4230863ACBD0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		504F3D4FEB38AA2D089B7B41 /* TriviaLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaLiveActivity.swift; sourceTree = "<group>"; };
+		517AC59F53F740EED2771A62 /* trivia_food.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = trivia_food.json; sourceTree = "<group>"; };
+		5362F8488E0D91BA800EDAA2 /* CoreHaptics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreHaptics.framework; path = System/Library/Frameworks/CoreHaptics.framework; sourceTree = SDKROOT; };
+		5B1051119DBB9A8D964BBA8B /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
+		5D6D63B261BC2597AE5557D2 /* TriviaModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaModels.swift; sourceTree = "<group>"; };
+		5F3FFB5E208125EB7055BF78 /* LevelCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelCatalog.swift; sourceTree = "<group>"; };
+		6454CDCA4A99DA631C99FF1D /* words_history.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_history.json; sourceTree = "<group>"; };
+		650418A2423E0783C8776AF4 /* ResultOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultOverlay.swift; sourceTree = "<group>"; };
+		6DC497B02065BC62BDECE02E /* WordQuestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordQuestApp.swift; sourceTree = "<group>"; };
+		712408E7D6F19939356CA0CD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		74999D02D1C87DA06E18A211 /* WordSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchViewModel.swift; sourceTree = "<group>"; };
+		7ACE8A7FA944CC0DADC29E0C /* LevelMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelMapView.swift; sourceTree = "<group>"; };
+		7AED710385DBBFF490FF5F1B /* WordSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchView.swift; sourceTree = "<group>"; };
+		7CE8B7A3815032C6D6F31B7F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		85A2AA6B26F38C7BE7089E99 /* WordQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DC176DF2D975A7E49E3F057 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		8F98AF533866EABABE489EC8 /* MultiplayerResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerResultsView.swift; sourceTree = "<group>"; };
+		8FFD7D806858BDA9F7144C3C /* AdsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
+		924C794BD611A3437F977BC4 /* SeededGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededGenerator.swift; sourceTree = "<group>"; };
+		94E757BCB1C3AB396C7B8DA3 /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
+		965172F308214B8C3BD88E65 /* GentleAdCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GentleAdCard.swift; sourceTree = "<group>"; };
+		96CCAA3849DF4ABE723E9575 /* MultiplayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerViewModel.swift; sourceTree = "<group>"; };
+		976E6A28F5F0266F6DA05B20 /* WordQuest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WordQuest.entitlements; sourceTree = "<group>"; };
+		98D8110E25B0A3FD07F576ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A8132B70E6CC6349A683AED1 /* NativeAdContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdContainerView.swift; sourceTree = "<group>"; };
+		AC2474798926511DC43D8CB6 /* words_geography.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_geography.json; sourceTree = "<group>"; };
+		AC86F431B3B775ED90BD9E51 /* WordQuestActivityBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordQuestActivityBundle.swift; sourceTree = "<group>"; };
+		AD9BCE6BEAEFFD546745F621 /* GameCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterManager.swift; sourceTree = "<group>"; };
+		B0F90ECAA77A4CFCECFA444C /* TriviaActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaActivityManager.swift; sourceTree = "<group>"; };
+		B785831F8C26CC2B9151A5DA /* ThemeQuickPlaySheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeQuickPlaySheet.swift; sourceTree = "<group>"; };
+		B852892C66B598BA1DCDD258 /* HapticsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HapticsManager.swift; sourceTree = "<group>"; };
+		BA304EA2826F98E7B158E95E /* ContentStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentStore.swift; sourceTree = "<group>"; };
+		C1FFF2BB5A3079D6E32588F5 /* TriviaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaView.swift; sourceTree = "<group>"; };
+		C2F7D8374E02B9F6202D9872 /* WordSearchGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchGenerator.swift; sourceTree = "<group>"; };
+		CA59FC796EF4A3F6C10FEA64 /* MultiplayerModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerModels.swift; sourceTree = "<group>"; };
+		D9B6DF6F924653CEDDF63E41 /* words_music.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_music.json; sourceTree = "<group>"; };
+		D9CF183493D4B59121ABA72E /* words_movies.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_movies.json; sourceTree = "<group>"; };
+		DAEC57D185265A437660F796 /* words_animals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_animals.json; sourceTree = "<group>"; };
+		DB33CE3445C43BE76F00CD79 /* WordQuestActivity.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = WordQuestActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0252DB5C69917DE5B242C92 /* words_food.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_food.json; sourceTree = "<group>"; };
+		E3132AEE2477B209E9128369 /* HouseAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseAd.swift; sourceTree = "<group>"; };
+		EB19B10AFD80BDFC9BBA85AF /* ThemeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSelectView.swift; sourceTree = "<group>"; };
+		EB447F5736E16A58FF6F17FC /* trivia_animals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = trivia_animals.json; sourceTree = "<group>"; };
+		F05F59A29322BF6343168FEF /* TriviaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaViewModel.swift; sourceTree = "<group>"; };
+		FAACEED40DD27EC50F111A8F /* trivia_music.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = trivia_music.json; sourceTree = "<group>"; };
+		FBF18641A82C5BBBCE863A2A /* WordSearchGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchGridView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		736409DBC15FD441A92AC09A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				2150794C660C255CE23F3928 /* GameKit.framework in Frameworks */,
+				06BE06BAD5D662040410776E /* CoreHaptics.framework in Frameworks */,
+				E7A83B79AB2CBA3456154980 /* AppTrackingTransparency.framework in Frameworks */,
+				ED5085299D8069466D3B1932 /* GoogleMobileAds in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0B7A091CC160BFD554E0ACFA /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				BA304EA2826F98E7B158E95E /* ContentStore.swift */,
+				5F3FFB5E208125EB7055BF78 /* LevelCatalog.swift */,
+				924C794BD611A3437F977BC4 /* SeededGenerator.swift */,
+				C2F7D8374E02B9F6202D9872 /* WordSearchGenerator.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		0D08D76B25C4C7602585F09B /* WordSearch */ = {
+			isa = PBXGroup;
+			children = (
+				FBF18641A82C5BBBCE863A2A /* WordSearchGridView.swift */,
+				7AED710385DBBFF490FF5F1B /* WordSearchView.swift */,
+			);
+			path = WordSearch;
+			sourceTree = "<group>";
+		};
+		1FDD1F04646641F2A0B69587 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				94E757BCB1C3AB396C7B8DA3 /* AppRoute.swift */,
+				13F5B4F580EB95F76E08295E /* RootView.swift */,
+				4B8218EDA9BD0406A3C63FBF /* Router.swift */,
+				6DC497B02065BC62BDECE02E /* WordQuestApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		20FA8EDB814646836195969D /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				B852892C66B598BA1DCDD258 /* HapticsManager.swift */,
+				0EB3364EB7E33E253D874B73 /* SettingsStore.swift */,
+				8DC176DF2D975A7E49E3F057 /* SoundManager.swift */,
+				B0F90ECAA77A4CFCECFA444C /* TriviaActivityManager.swift */,
+				47D6768BB7C93637EA8FE30C /* Ads */,
+				819F284399B3A2DE1DF7970B /* GameCenter */,
+				99749F00304F1A01800AED9E /* Haptics */,
+				5E5EFECA7AC73B7C4AB7D12C /* Multiplayer */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		2C95CAB8AD2EFAA48FCBA8D6 /* WordQuest */ = {
+			isa = PBXGroup;
+			children = (
+				98D8110E25B0A3FD07F576ED /* Assets.xcassets */,
+				2FB68539067A24A9DCFD2C56 /* Info.plist */,
+				712408E7D6F19939356CA0CD /* PrivacyInfo.xcprivacy */,
+				976E6A28F5F0266F6DA05B20 /* WordQuest.entitlements */,
+				1FDD1F04646641F2A0B69587 /* App */,
+				0B7A091CC160BFD554E0ACFA /* Data */,
+				3A702A76F005AD927CACBCFB /* Models */,
+				974F092355104CCBAF6F373E /* Resources */,
+				20FA8EDB814646836195969D /* Services */,
+				5203A6018D3B29BEAF484474 /* Shared */,
+				3D9D44B158E6FEB49E90E053 /* ViewModels */,
+				4EF4A8EC9DC88955F62B5A7B /* Views */,
+			);
+			path = WordQuest;
+			sourceTree = "<group>";
+		};
+		3A702A76F005AD927CACBCFB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E3132AEE2477B209E9128369 /* HouseAd.swift */,
+				31DC99756E71A7AEEA26D09F /* LevelProgress.swift */,
+				CA59FC796EF4A3F6C10FEA64 /* MultiplayerModels.swift */,
+				3BBF3ACE34CFCE509510A3B0 /* Theme.swift */,
+				5D6D63B261BC2597AE5557D2 /* TriviaModels.swift */,
+				0A659B7231BC5FEA5E9FA0E8 /* WordSearchModels.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		3AED1B73D7EC28519346C952 /* Theme */ = {
+			isa = PBXGroup;
+			children = (
+				EB19B10AFD80BDFC9BBA85AF /* ThemeSelectView.swift */,
+			);
+			path = Theme;
+			sourceTree = "<group>";
+		};
+		3D9D44B158E6FEB49E90E053 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				96CCAA3849DF4ABE723E9575 /* MultiplayerViewModel.swift */,
+				F05F59A29322BF6343168FEF /* TriviaViewModel.swift */,
+				74999D02D1C87DA06E18A211 /* WordSearchViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		404E8645C5F89077D62765D8 /* Trivia */ = {
+			isa = PBXGroup;
+			children = (
+				C1FFF2BB5A3079D6E32588F5 /* TriviaView.swift */,
+			);
+			path = Trivia;
+			sourceTree = "<group>";
+		};
+		427EA1C3E7A6BAA98BA3DB8F /* Multiplayer */ = {
+			isa = PBXGroup;
+			children = (
+				34F43F65D7E7B24B6C7932DC /* MultiplayerGameView.swift */,
+				4AE4F6EFD328F990EBBB27CE /* MultiplayerLobbyView.swift */,
+				8F98AF533866EABABE489EC8 /* MultiplayerResultsView.swift */,
+				1282DD331A55E309789CA455 /* MultiplayerRoomView.swift */,
+			);
+			path = Multiplayer;
+			sourceTree = "<group>";
+		};
+		44ED28EC01B2842C250DF8B6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				85A2AA6B26F38C7BE7089E99 /* WordQuest.app */,
+				DB33CE3445C43BE76F00CD79 /* WordQuestActivity.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		47D6768BB7C93637EA8FE30C /* Ads */ = {
+			isa = PBXGroup;
+			children = (
+				8FFD7D806858BDA9F7144C3C /* AdsManager.swift */,
+				05D491A3A83976BFD28B88B1 /* TrackingManager.swift */,
+			);
+			path = Ads;
+			sourceTree = "<group>";
+		};
+		4EF4A8EC9DC88955F62B5A7B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				723C28890A77692317A77ADA /* Home */,
+				427EA1C3E7A6BAA98BA3DB8F /* Multiplayer */,
+				772DF91FDE35EB8FCEA9C1B3 /* Shared */,
+				3AED1B73D7EC28519346C952 /* Theme */,
+				404E8645C5F89077D62765D8 /* Trivia */,
+				0D08D76B25C4C7602585F09B /* WordSearch */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		5203A6018D3B29BEAF484474 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				0D3A6C62F495E2B3C42CEE50 /* TriviaActivityAttributes.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		5E5EFECA7AC73B7C4AB7D12C /* Multiplayer */ = {
+			isa = PBXGroup;
+			children = (
+				472668650FBA9C3105B9B35E /* MultiplayerService.swift */,
+			);
+			path = Multiplayer;
+			sourceTree = "<group>";
+		};
+		723C28890A77692317A77ADA /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				7CE8B7A3815032C6D6F31B7F /* HomeView.swift */,
+				7ACE8A7FA944CC0DADC29E0C /* LevelMapView.swift */,
+				B785831F8C26CC2B9151A5DA /* ThemeQuickPlaySheet.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		772DF91FDE35EB8FCEA9C1B3 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				965172F308214B8C3BD88E65 /* GentleAdCard.swift */,
+				A8132B70E6CC6349A683AED1 /* NativeAdContainerView.swift */,
+				650418A2423E0783C8776AF4 /* ResultOverlay.swift */,
+				4C22EAE4A1ED4230863ACBD0 /* SettingsView.swift */,
+				2DC56F60E11D9B900D5E0758 /* StarsView.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		819F284399B3A2DE1DF7970B /* GameCenter */ = {
+			isa = PBXGroup;
+			children = (
+				AD9BCE6BEAEFFD546745F621 /* GameCenterManager.swift */,
+			);
+			path = GameCenter;
+			sourceTree = "<group>";
+		};
+		8F80A4E942770C2384DF1067 = {
+			isa = PBXGroup;
+			children = (
+				2C95CAB8AD2EFAA48FCBA8D6 /* WordQuest */,
+				B656AB105D45276FEF6A2E5C /* WordQuestActivity */,
+				D4F1FE9498665933585E45F7 /* Frameworks */,
+				44ED28EC01B2842C250DF8B6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		974F092355104CCBAF6F373E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B2C1FC2D0807CCB0552887A1 /* Content */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		99749F00304F1A01800AED9E /* Haptics */ = {
+			isa = PBXGroup;
+			children = (
+				286B1F54DE3783AF3672344D /* HapticsPlayer.swift */,
+			);
+			path = Haptics;
+			sourceTree = "<group>";
+		};
+		B2C1FC2D0807CCB0552887A1 /* Content */ = {
+			isa = PBXGroup;
+			children = (
+				2D30703AC7468C588B4CD271 /* themes.json */,
+				EB447F5736E16A58FF6F17FC /* trivia_animals.json */,
+				517AC59F53F740EED2771A62 /* trivia_food.json */,
+				498D94F49A125F5B5DEC221F /* trivia_geography.json */,
+				10821851697384D320C820B2 /* trivia_history.json */,
+				2C45DF678226EA4165DA972B /* trivia_movies.json */,
+				FAACEED40DD27EC50F111A8F /* trivia_music.json */,
+				374CE0BC47419085ED1475C1 /* trivia_science.json */,
+				30E928C461E5AFFB3E8FF0DE /* trivia_sports.json */,
+				DAEC57D185265A437660F796 /* words_animals.json */,
+				E0252DB5C69917DE5B242C92 /* words_food.json */,
+				AC2474798926511DC43D8CB6 /* words_geography.json */,
+				6454CDCA4A99DA631C99FF1D /* words_history.json */,
+				D9CF183493D4B59121ABA72E /* words_movies.json */,
+				D9B6DF6F924653CEDDF63E41 /* words_music.json */,
+				3070D60CBEB480CEEC85D704 /* words_science.json */,
+				4BAB03881F7D451E744265ED /* words_sports.json */,
+			);
+			path = Content;
+			sourceTree = "<group>";
+		};
+		B656AB105D45276FEF6A2E5C /* WordQuestActivity */ = {
+			isa = PBXGroup;
+			children = (
+				1CFCAD33A8FFD4452E7C5D37 /* Info.plist */,
+				504F3D4FEB38AA2D089B7B41 /* TriviaLiveActivity.swift */,
+				AC86F431B3B775ED90BD9E51 /* WordQuestActivityBundle.swift */,
+			);
+			path = WordQuestActivity;
+			sourceTree = "<group>";
+		};
+		D4F1FE9498665933585E45F7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5B1051119DBB9A8D964BBA8B /* AppTrackingTransparency.framework */,
+				5362F8488E0D91BA800EDAA2 /* CoreHaptics.framework */,
+				06AA8FDECC3E60FCB871EDD4 /* GameKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7220E31253ED29937E752F2B /* WordQuest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 162514FDAC912DBCFE0439B9 /* Build configuration list for PBXNativeTarget "WordQuest" */;
+			buildPhases = (
+				73BBEDCF3DB8D01EEBEE7A92 /* Sources */,
+				FB6979D1241591A07853FD59 /* Resources */,
+				736409DBC15FD441A92AC09A /* Frameworks */,
+				2BA9997123298450EFAA4F0C /* Embed Foundation Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EBFA74887B02B9B83299F7AE /* PBXTargetDependency */,
+			);
+			name = WordQuest;
+			packageProductDependencies = (
+				68A3130EEC902464C6DEEF0A /* GoogleMobileAds */,
+			);
+			productName = WordQuest;
+			productReference = 85A2AA6B26F38C7BE7089E99 /* WordQuest.app */;
+			productType = "com.apple.product-type.application";
+		};
+		8372491E060F0E556B62971D /* WordQuestActivity */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5D90E3BD2090397E2CB54866 /* Build configuration list for PBXNativeTarget "WordQuestActivity" */;
+			buildPhases = (
+				9884643B92A2B3244EE2C99D /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = WordQuestActivity;
+			packageProductDependencies = (
+			);
+			productName = WordQuestActivity;
+			productReference = DB33CE3445C43BE76F00CD79 /* WordQuestActivity.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0EFEE7DBDFD9A18C0F4A6C7A /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					7220E31253ED29937E752F2B = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+					8372491E060F0E556B62971D = {
+						DevelopmentTeam = "";
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 0C8C20800A85C79BA46CF6A6 /* Build configuration list for PBXProject "WordQuest" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 8F80A4E942770C2384DF1067;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				5649934D5F958755676FE603 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 44ED28EC01B2842C250DF8B6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7220E31253ED29937E752F2B /* WordQuest */,
+				8372491E060F0E556B62971D /* WordQuestActivity */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FB6979D1241591A07853FD59 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				361606809641FFFF9C119600 /* Assets.xcassets in Resources */,
+				F381C9D8A79AC6ECB02F0F01 /* PrivacyInfo.xcprivacy in Resources */,
+				7E65EC576F5B8F2F93CC6EBE /* themes.json in Resources */,
+				C1FF31CE2108AB901887FBD1 /* trivia_animals.json in Resources */,
+				CD95F0280EB637B18081DC53 /* trivia_food.json in Resources */,
+				BA34E3D5BC5497EDF5253464 /* trivia_geography.json in Resources */,
+				8923CB7548B854FF211ADDB7 /* trivia_history.json in Resources */,
+				D3168D4A65A174AF851FBCD6 /* trivia_movies.json in Resources */,
+				860B6D9FE7D7810DD09644A8 /* trivia_music.json in Resources */,
+				3B1C359551FD906882355621 /* trivia_science.json in Resources */,
+				2423D81D1FE9015D67C89A6B /* trivia_sports.json in Resources */,
+				AFB1D171C4DA1103C656AE97 /* words_animals.json in Resources */,
+				AD71DD46FA6728804EEDB935 /* words_food.json in Resources */,
+				239AC8F9209496961A9F6C76 /* words_geography.json in Resources */,
+				366972C98E06B1B03D21C1F8 /* words_history.json in Resources */,
+				68819B30DF4233F83D9AA6CA /* words_movies.json in Resources */,
+				3B2705BF281195B0E96AB30F /* words_music.json in Resources */,
+				1026EEA8CD44A7D927216436 /* words_science.json in Resources */,
+				7D9CBEE2005669B3A6BF7BA0 /* words_sports.json in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		73BBEDCF3DB8D01EEBEE7A92 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E2462B69F6845B67EEFC14EE /* AdsManager.swift in Sources */,
+				E55B72B4823FF103E56B6281 /* AppRoute.swift in Sources */,
+				3EFD6E8F919F939893F7B642 /* ContentStore.swift in Sources */,
+				EB0EFEE4800B9C19CC4696A7 /* GameCenterManager.swift in Sources */,
+				98787280D0FDFEFFA5BE2914 /* GentleAdCard.swift in Sources */,
+				565E0FC8BDA0FD6AE1937384 /* HapticsManager.swift in Sources */,
+				E61B47B8D8CAA4499B500376 /* HapticsPlayer.swift in Sources */,
+				A7543A655FDDC9F41E10EA22 /* HomeView.swift in Sources */,
+				7277917D8039E3B41B332624 /* HouseAd.swift in Sources */,
+				8BE7D8AE8EC9BDA11DE93A9D /* LevelCatalog.swift in Sources */,
+				F53653B15C01634AB54C89FA /* LevelMapView.swift in Sources */,
+				215637B2F880F04000AA96A4 /* LevelProgress.swift in Sources */,
+				6737B76BECEC918B15E81395 /* MultiplayerGameView.swift in Sources */,
+				1BA2F2901656970931E45CC5 /* MultiplayerLobbyView.swift in Sources */,
+				28BE808E3A047A7A01E7A70F /* MultiplayerModels.swift in Sources */,
+				92AC64AEA5C4B562119E8173 /* MultiplayerResultsView.swift in Sources */,
+				103E86CDFFB3B20FF204B9A1 /* MultiplayerRoomView.swift in Sources */,
+				E358167917410FA7F2B74CA4 /* MultiplayerService.swift in Sources */,
+				7DBB2151598D9BFFCB6D458E /* MultiplayerViewModel.swift in Sources */,
+				5DE6A96D5F1AA2A03A93475B /* NativeAdContainerView.swift in Sources */,
+				3ED6BBCF7C6A838C5AA7816F /* ResultOverlay.swift in Sources */,
+				DBCEB84ED4FFCB7BE623C8A7 /* RootView.swift in Sources */,
+				88EAC24B49085BA7DF7D5ED3 /* Router.swift in Sources */,
+				00A5492F956BDC6DE6DE3A27 /* SeededGenerator.swift in Sources */,
+				022C5536BDFAD01091E1EB96 /* SettingsStore.swift in Sources */,
+				FDC0B9D04E3833059CA5F417 /* SettingsView.swift in Sources */,
+				E4185387D178F0ABCE03767F /* SoundManager.swift in Sources */,
+				4D72DADB7EFEA943D0917019 /* StarsView.swift in Sources */,
+				97D3E462235709174838B251 /* Theme.swift in Sources */,
+				D63005F6ED683A4E6B28E751 /* ThemeQuickPlaySheet.swift in Sources */,
+				5538F3354746ECA70EFA9F6D /* ThemeSelectView.swift in Sources */,
+				89F2B4D931ACB7548EA7FC0E /* TrackingManager.swift in Sources */,
+				2DD99B23F7CA80225016D51A /* TriviaActivityAttributes.swift in Sources */,
+				0B27D55AFD427C225D3401F2 /* TriviaActivityManager.swift in Sources */,
+				715BAF7EDB9B7BD6F32BA069 /* TriviaModels.swift in Sources */,
+				400BDDCAD7D2A496C4C5A467 /* TriviaView.swift in Sources */,
+				35EED5FF263A23CB4949E13F /* TriviaViewModel.swift in Sources */,
+				599CD04024E9E8B3964D6A14 /* WordQuestApp.swift in Sources */,
+				605EB5A36B25D159636C2D17 /* WordSearchGenerator.swift in Sources */,
+				BE69F6CA97FBC74860C4C9B4 /* WordSearchGridView.swift in Sources */,
+				25CAE0BD928B45EC9401DC87 /* WordSearchModels.swift in Sources */,
+				5F1FB01704512B08C11E6C77 /* WordSearchView.swift in Sources */,
+				5263B71BE739EA29A00D8DDB /* WordSearchViewModel.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		9884643B92A2B3244EE2C99D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				427C6F768225D4D5F84086B6 /* Theme.swift in Sources */,
+				4A5750CE79AC496B83BB9CC2 /* TriviaActivityAttributes.swift in Sources */,
+				B115D508CAC2D550A61059A3 /* TriviaLiveActivity.swift in Sources */,
+				50D422A9D2CF34640D2E37EC /* WordQuestActivityBundle.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EBFA74887B02B9B83299F7AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8372491E060F0E556B62971D /* WordQuestActivity */;
+			targetProxy = 85CC5A33C089C062BD04EAAC /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		040E8CE935D41EFD04E06E0E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		606C0538366E87F8E926A787 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				ENABLE_PREVIEWS = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7BB18A5808FC2AAAD704127B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WordQuest/WordQuest.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WordQuest/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WordQuest;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "WordQuest uses Bluetooth to connect with nearby friends for local multiplayer trivia.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "WordQuest uses Bluetooth to connect with nearby friends for local multiplayer trivia.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "WordQuest uses your local network to find nearby friends for local multiplayer trivia.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = NO;
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "WordQuest would like to tailor suggestions to how you play. This is entirely optional and never required to enjoy the app.";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wordquest.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		85C4A081A88C0A4242BA20DC /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = WordQuest/WordQuest.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WordQuest/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WordQuest;
+				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "WordQuest uses Bluetooth to connect with nearby friends for local multiplayer trivia.";
+				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "WordQuest uses Bluetooth to connect with nearby friends for local multiplayer trivia.";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "WordQuest uses your local network to find nearby friends for local multiplayer trivia.";
+				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
+				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = NO;
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "WordQuest would like to tailor suggestions to how you play. This is entirely optional and never required to enjoy the app.";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wordquest.app;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A5D679CE6CB68967C6E0CB9A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WordQuestActivity/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wordquest.app.activity;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D3DC81A68E4EDC7B6E491AF5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WordQuestActivity/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wordquest.app.activity;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		0C8C20800A85C79BA46CF6A6 /* Build configuration list for PBXProject "WordQuest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				606C0538366E87F8E926A787 /* Debug */,
+				040E8CE935D41EFD04E06E0E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		162514FDAC912DBCFE0439B9 /* Build configuration list for PBXNativeTarget "WordQuest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BB18A5808FC2AAAD704127B /* Debug */,
+				85C4A081A88C0A4242BA20DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5D90E3BD2090397E2CB54866 /* Build configuration list for PBXNativeTarget "WordQuestActivity" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A5D679CE6CB68967C6E0CB9A /* Debug */,
+				D3DC81A68E4EDC7B6E491AF5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		5649934D5F958755676FE603 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		68A3130EEC902464C6DEEF0A /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 5649934D5F958755676FE603 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 0EFEE7DBDFD9A18C0F4A6C7A /* Project object */;
+}

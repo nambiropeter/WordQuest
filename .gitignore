@@ -1,0 +1,18 @@
+# Xcode
+xcuserdata/
+*.xcuserstate
+*.xcuserdatad/
+DerivedData/
+.build/
+*.xcscmblueprint
+*.xccheckout
+
+# Swift Package Manager local build cache (Package.resolved is committed
+# intentionally, for reproducible dependency versions)
+.swiftpm/
+
+# macOS
+.DS_Store
+
+# Simulator/screenshots produced while developing, not part of the app
+*.png.tmp

@@ -15,7 +15,20 @@ enum LevelCatalog {
     }
 
     private static func themeSeedBase(_ theme: GameTheme) -> Int {
-        abs(theme.id.hashValue % 1_000_000)
+        abs(stableHash(theme.id) % 1_000_000)
+    }
+
+    /// `String.hashValue` is randomized per process launch (Swift seeds its hasher
+    /// for DoS resistance), so using it here would make "deterministic" levels
+    /// actually change every time the app relaunches. FNV-1a over the raw UTF-8
+    /// bytes gives the same value every time, on every device, for the same theme id.
+    private static func stableHash(_ string: String) -> Int {
+        var hash: UInt64 = 0xcbf29ce484222325 // FNV offset basis
+        for byte in string.utf8 {
+            hash ^= UInt64(byte)
+            hash = hash &* 0x100000001b3 // FNV prime
+        }
+        return Int(truncatingIfNeeded: hash)
     }
 
     // MARK: - Word Search

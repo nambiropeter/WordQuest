@@ -1,143 +1,226 @@
 import Foundation
-import MultipeerConnectivity
+import Network
 
-/// Thin transport layer over MultipeerConnectivity. Knows nothing about
-/// trivia rules — just discovery, connection, and sending/receiving Codable
-/// messages. MultipeerConnectivity automatically negotiates the best
-/// available link between nearby devices (Bluetooth or local Wi-Fi), so the
-/// app doesn't need to choose a transport itself.
-final class MultiplayerService: NSObject, ObservableObject {
-    static let serviceType = "wq-trivia"
-    /// MultipeerConnectivity sessions are reliable up to about 8 total
-    /// participants (Apple's guidance); beyond that, throughput and
-    /// discovery become unreliable, so new joins are declined past this cap.
+/// Thin transport layer for local multiplayer. Knows nothing about trivia
+/// rules — just discovery, connection, and sending/receiving
+/// `MultiplayerMessage`s.
+///
+/// Both platforms speak the same open protocol so iPhones and Android phones
+/// can play together: the host advertises a Bonjour service of type
+/// `serviceType` (via `NWListener` here, `NsdManager` on Android) and accepts
+/// plain TCP connections; every message is one line of UTF-8 JSON terminated
+/// by `\n`. Players therefore need to be on the same Wi-Fi network (or one
+/// phone's hotspot) — MultipeerConnectivity and Android's Nearby Connections
+/// can't talk to each other.
+final class MultiplayerService: ObservableObject {
+    /// Must match `LocalMultiplayerService.SERVICE_TYPE` on Android and
+    /// `NSBonjourServices` in Info.plist.
+    static let serviceType = "_wq-trivia._tcp"
+    /// Host + guests — mirrors Android's `LocalMultiplayerService.MAX_PEERS`.
     static let maxPeers = 8
 
-    let myPeerID: MCPeerID
-    private let session: MCSession
-    private var advertiser: MCNearbyServiceAdvertiser?
-    private var browser: MCNearbyServiceBrowser?
+    struct Peer: Hashable, Identifiable {
+        let id: String
+    }
 
-    @Published private(set) var connectedPeers: [MCPeerID] = []
-    @Published private(set) var discoveredPeers: [MCPeerID] = []
+    struct DiscoveredHost: Hashable, Identifiable {
+        let id: String
+        let name: String
+        let endpoint: NWEndpoint
+    }
 
-    var onReceive: ((MultiplayerMessage, MCPeerID) -> Void)?
-    var onPeerConnected: ((MCPeerID) -> Void)?
-    var onPeerDisconnected: ((MCPeerID) -> Void)?
-    var onHostDiscovered: ((MCPeerID) -> Void)?
-    var onHostLost: ((MCPeerID) -> Void)?
+    private let displayName: String
+    private var listener: NWListener?
+    private var browser: NWBrowser?
+    private var connections: [String: NWConnection] = [:]
+    private var buffers: [String: Data] = [:]
+
+    @Published private(set) var connectedPeers: [Peer] = []
+    @Published private(set) var discoveredHosts: [DiscoveredHost] = []
+
+    var onReceive: ((MultiplayerMessage, Peer) -> Void)?
+    var onPeerConnected: ((Peer) -> Void)?
+    var onPeerDisconnected: ((Peer) -> Void)?
+    var onHostDiscovered: ((DiscoveredHost) -> Void)?
+    var onHostLost: ((DiscoveredHost) -> Void)?
 
     init(displayName: String) {
         let sanitized = String(displayName.prefix(63))
-        myPeerID = MCPeerID(displayName: sanitized.isEmpty ? "Player" : sanitized)
-        session = MCSession(peer: myPeerID, securityIdentity: nil, encryptionPreference: .none)
-        super.init()
-        session.delegate = self
+        self.displayName = sanitized.isEmpty ? "Player" : sanitized
     }
 
+    // MARK: - Host
+
     func startHosting() {
-        let advertiser = MCNearbyServiceAdvertiser(peer: myPeerID, discoveryInfo: nil, serviceType: Self.serviceType)
-        advertiser.delegate = self
-        advertiser.startAdvertisingPeer()
-        self.advertiser = advertiser
+        do {
+            let listener = try NWListener(using: Self.tcpParameters())
+            listener.service = NWListener.Service(name: displayName, type: Self.serviceType)
+            listener.stateUpdateHandler = { state in
+                if case .failed(let error) = state {
+                    print("Multiplayer: listener failed: \(error)")
+                }
+            }
+            listener.newConnectionHandler = { [weak self] connection in
+                guard let self else { return connection.cancel() }
+                // +1 accounts for the host itself, which isn't in connections.
+                guard self.connections.count + 1 < Self.maxPeers else {
+                    connection.cancel()
+                    return
+                }
+                self.attach(connection, id: UUID().uuidString)
+            }
+            listener.start(queue: .main)
+            self.listener = listener
+        } catch {
+            print("Multiplayer: could not start hosting: \(error)")
+        }
     }
 
     func stopHosting() {
-        advertiser?.stopAdvertisingPeer()
-        advertiser = nil
+        listener?.cancel()
+        listener = nil
     }
 
+    // MARK: - Guest
+
     func startBrowsing() {
-        let browser = MCNearbyServiceBrowser(peer: myPeerID, serviceType: Self.serviceType)
-        browser.delegate = self
-        browser.startBrowsingForPeers()
+        let browser = NWBrowser(for: .bonjour(type: Self.serviceType, domain: nil), using: Self.tcpParameters())
+        browser.browseResultsChangedHandler = { [weak self] results, _ in
+            guard let self else { return }
+            let hosts: [DiscoveredHost] = results.compactMap { result in
+                guard case let .service(name, _, _, _) = result.endpoint else { return nil }
+                return DiscoveredHost(id: name, name: name, endpoint: result.endpoint)
+            }
+            let lost = self.discoveredHosts.filter { old in !hosts.contains { $0.id == old.id } }
+            let found = hosts.filter { new in !self.discoveredHosts.contains { $0.id == new.id } }
+            self.discoveredHosts = hosts
+            lost.forEach { self.onHostLost?($0) }
+            found.forEach { self.onHostDiscovered?($0) }
+        }
+        browser.stateUpdateHandler = { state in
+            if case .failed(let error) = state {
+                print("Multiplayer: browser failed: \(error)")
+            }
+        }
+        browser.start(queue: .main)
         self.browser = browser
     }
 
     func stopBrowsing() {
-        browser?.stopBrowsingForPeers()
+        browser?.cancel()
         browser = nil
-        discoveredPeers = []
+        discoveredHosts = []
     }
 
-    func invite(_ peer: MCPeerID) {
-        browser?.invitePeer(peer, to: session, withContext: nil, timeout: 20)
+    func connect(to host: DiscoveredHost) {
+        attach(NWConnection(to: host.endpoint, using: Self.tcpParameters()), id: host.id)
     }
 
-    func send(_ message: MultiplayerMessage, to peers: [MCPeerID]? = nil) {
-        guard let data = try? JSONEncoder().encode(message) else { return }
-        let targets = peers ?? session.connectedPeers
-        guard !targets.isEmpty else { return }
-        try? session.send(data, toPeers: targets, with: .reliable)
+    // MARK: - Messaging
+
+    func send(_ message: MultiplayerMessage, to peers: [Peer]? = nil) {
+        var data: Data
+        do {
+            data = try JSONEncoder().encode(message)
+        } catch {
+            print("Multiplayer: failed to encode \(message): \(error.localizedDescription)")
+            return
+        }
+        data.append(0x0A)
+        let targets = peers?.map(\.id) ?? connectedPeers.map(\.id)
+        for id in targets {
+            connections[id]?.send(content: data, completion: .contentProcessed { error in
+                if let error {
+                    // A dropped send used to vanish silently, which made a stalled
+                    // round impossible to tell apart from a peer not answering.
+                    print("Multiplayer: send failed: \(error)")
+                }
+            })
+        }
     }
 
     func disconnect() {
-        session.disconnect()
         stopHosting()
         stopBrowsing()
+        for connection in connections.values { connection.cancel() }
+        connections = [:]
+        buffers = [:]
         connectedPeers = []
     }
-}
 
-extension MultiplayerService: MCSessionDelegate {
-    func session(_ session: MCSession, peer peerID: MCPeerID, didChange state: MCSessionState) {
-        DispatchQueue.main.async {
+    // MARK: - Connections
+
+    private static func tcpParameters() -> NWParameters {
+        let tcp = NWProtocolTCP.Options()
+        tcp.noDelay = true
+        return NWParameters(tls: nil, tcp: tcp)
+    }
+
+    private func attach(_ connection: NWConnection, id: String) {
+        connections[id] = connection
+        let peer = Peer(id: id)
+        connection.stateUpdateHandler = { [weak self] state in
+            guard let self else { return }
             switch state {
-            case .connected:
-                if !self.connectedPeers.contains(peerID) {
-                    self.connectedPeers.append(peerID)
+            case .ready:
+                if !self.connectedPeers.contains(peer) {
+                    self.connectedPeers.append(peer)
                 }
-                self.onPeerConnected?(peerID)
-            case .notConnected:
-                self.connectedPeers.removeAll { $0 == peerID }
-                self.onPeerDisconnected?(peerID)
-            case .connecting:
+                self.onPeerConnected?(peer)
+            case .failed(let error):
+                print("Multiplayer: connection failed: \(error)")
+                connection.cancel()
+                self.drop(id)
+            case .cancelled:
+                self.drop(id)
+            default:
                 break
-            @unknown default:
-                break
+            }
+        }
+        receive(on: connection, id: id)
+        connection.start(queue: .main)
+    }
+
+    private func receive(on connection: NWConnection, id: String) {
+        connection.receive(minimumIncompleteLength: 1, maximumLength: 64 * 1024) { [weak self] data, _, isComplete, error in
+            guard let self else { return }
+            if let data, !data.isEmpty {
+                self.buffers[id, default: Data()].append(data)
+                self.drainLines(for: id)
+            }
+            if isComplete || error != nil {
+                connection.cancel()
+            } else {
+                self.receive(on: connection, id: id)
             }
         }
     }
 
-    func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
-        guard let message = try? JSONDecoder().decode(MultiplayerMessage.self, from: data) else { return }
-        DispatchQueue.main.async {
-            self.onReceive?(message, peerID)
-        }
-    }
-
-    func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {}
-    func session(_ session: MCSession, didStartReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, with progress: Progress) {}
-    func session(_ session: MCSession, didFinishReceivingResourceWithName resourceName: String, fromPeer peerID: MCPeerID, at localURL: URL?, withError error: Error?) {}
-}
-
-extension MultiplayerService: MCNearbyServiceAdvertiserDelegate {
-    func advertiser(
-        _ advertiser: MCNearbyServiceAdvertiser,
-        didReceiveInvitationFromPeer peerID: MCPeerID,
-        withContext context: Data?,
-        invitationHandler: @escaping (Bool, MCSession?) -> Void
-    ) {
-        // +1 accounts for the host itself, which isn't in connectedPeers.
-        let hasRoom = connectedPeers.count + 1 < Self.maxPeers
-        invitationHandler(hasRoom, hasRoom ? session : nil)
-    }
-}
-
-extension MultiplayerService: MCNearbyServiceBrowserDelegate {
-    func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String: String]?) {
-        DispatchQueue.main.async {
-            if !self.discoveredPeers.contains(peerID) {
-                self.discoveredPeers.append(peerID)
+    private func drainLines(for id: String) {
+        guard var buffer = buffers[id] else { return }
+        while let newline = buffer.firstIndex(of: 0x0A) {
+            let line = Data(buffer[buffer.startIndex..<newline])
+            buffer.removeSubrange(buffer.startIndex...newline)
+            guard !line.isEmpty else { continue }
+            do {
+                let message = try JSONDecoder().decode(MultiplayerMessage.self, from: line)
+                onReceive?(message, Peer(id: id))
+            } catch {
+                print("Multiplayer: dropping undecodable message: \(error)")
             }
-            self.onHostDiscovered?(peerID)
         }
+        // A handler may have disconnected this peer mid-loop; don't resurrect its buffer.
+        if connections[id] != nil { buffers[id] = buffer }
     }
 
-    func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        DispatchQueue.main.async {
-            self.discoveredPeers.removeAll { $0 == peerID }
-            self.onHostLost?(peerID)
+    private func drop(_ id: String) {
+        guard connections.removeValue(forKey: id) != nil else { return }
+        buffers[id] = nil
+        let peer = Peer(id: id)
+        let wasConnected = connectedPeers.contains(peer)
+        connectedPeers.removeAll { $0 == peer }
+        if wasConnected {
+            onPeerDisconnected?(peer)
         }
     }
 }

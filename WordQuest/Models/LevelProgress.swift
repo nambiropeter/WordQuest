@@ -36,12 +36,26 @@ final class ProgressStore: ObservableObject {
     @Published private(set) var wordSearchResults: [String: LevelResult] = [:]
     @Published private(set) var triviaResults: [String: LevelResult] = [:]
     @Published private(set) var totalCoins: Int = 0
-    /// Whether this device is signed into an iCloud account at all — shown in
-    /// Settings so the sync status is never a silent mystery to the player.
-    @Published private(set) var iCloudAvailable: Bool = FileManager.default.ubiquityIdentityToken != nil
+    /// Whether progress is actually syncing: sync has to be built in *and*
+    /// the device signed into an iCloud account. Shown in Settings so the
+    /// sync status is never a silent mystery to the player.
+    @Published private(set) var iCloudAvailable: Bool = false
+
+    /// iCloud key-value sync needs the `com.apple.developer.ubiquity-kvstore-identifier`
+    /// entitlement, and Apple issues that only to paid Developer Program
+    /// accounts — with it declared, Xcode won't even create a development
+    /// provisioning profile for a free Personal Team. So the whole cloud path
+    /// is off by default and every call below is optional-chained through
+    /// `cloud`, leaving UserDefaults (which was always the primary store, and
+    /// is written first on every save) to carry progress on its own.
+    ///
+    /// After joining the paid program: restore the entitlements file and its
+    /// `CODE_SIGN_ENTITLEMENTS` setting in project.yml, then flip this to
+    /// `true`. Nothing else has to change — the merge logic is intact.
+    static let isCloudSyncEnabled = false
 
     private let defaults = UserDefaults.standard
-    private let cloud = NSUbiquitousKeyValueStore.default
+    private let cloud: NSUbiquitousKeyValueStore? = isCloudSyncEnabled ? .default : nil
     private let wordSearchKey = "wq.wordsearch.results.v2"
     private let triviaKey = "wq.trivia.results.v2"
     private let coinsKey = "wq.coins"
@@ -53,14 +67,16 @@ final class ProgressStore: ObservableObject {
 
     private init() {
         load()
-        NotificationCenter.default.addObserver(
-            forName: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
-            object: cloud,
-            queue: .main
-        ) { [weak self] _ in
-            Task { @MainActor in self?.load() }
+        if let cloud {
+            NotificationCenter.default.addObserver(
+                forName: NSUbiquitousKeyValueStore.didChangeExternallyNotification,
+                object: cloud,
+                queue: .main
+            ) { [weak self] _ in
+                Task { @MainActor in self?.load() }
+            }
+            cloud.synchronize()
         }
-        cloud.synchronize()
     }
 
     /// Loads local + iCloud saves and merges them (keeping the best result
@@ -71,18 +87,18 @@ final class ProgressStore: ObservableObject {
     private func load() {
         let localWordSearch = decode(from: defaults.data(forKey: wordSearchKey))
         let localTrivia = decode(from: defaults.data(forKey: triviaKey))
-        let cloudWordSearch = decode(from: cloud.data(forKey: wordSearchKey))
-        let cloudTrivia = decode(from: cloud.data(forKey: triviaKey))
+        let cloudWordSearch = decode(from: cloud?.data(forKey: wordSearchKey))
+        let cloudTrivia = decode(from: cloud?.data(forKey: triviaKey))
 
         wordSearchResults = merge(localWordSearch, cloudWordSearch)
         triviaResults = merge(localTrivia, cloudTrivia)
-        totalCoins = max(defaults.integer(forKey: coinsKey), Int(cloud.longLong(forKey: coinsKey)))
+        totalCoins = max(defaults.integer(forKey: coinsKey), Int(cloud?.longLong(forKey: coinsKey) ?? 0))
 
         persist(wordSearchResults, key: wordSearchKey)
         persist(triviaResults, key: triviaKey)
         defaults.set(totalCoins, forKey: coinsKey)
-        cloud.set(Int64(totalCoins), forKey: coinsKey)
-        iCloudAvailable = FileManager.default.ubiquityIdentityToken != nil
+        cloud?.set(Int64(totalCoins), forKey: coinsKey)
+        iCloudAvailable = cloud != nil && FileManager.default.ubiquityIdentityToken != nil
     }
 
     private func merge(_ a: [String: LevelResult], _ b: [String: LevelResult]) -> [String: LevelResult] {
@@ -193,8 +209,8 @@ final class ProgressStore: ObservableObject {
         let earnedCoins = stars * 10 + (existing == nil ? 20 : 0)
         totalCoins += earnedCoins
         defaults.set(totalCoins, forKey: coinsKey)
-        cloud.set(Int64(totalCoins), forKey: coinsKey)
-        cloud.synchronize()
+        cloud?.set(Int64(totalCoins), forKey: coinsKey)
+        cloud?.synchronize()
 
         reportToGameCenter(mode: mode, isFirstCompletion: existing == nil)
     }
@@ -225,7 +241,7 @@ final class ProgressStore: ObservableObject {
     private func persist(_ results: [String: LevelResult], key: String) {
         guard let data = try? JSONEncoder().encode(results) else { return }
         defaults.set(data, forKey: key)
-        if data.count < iCloudValueSizeLimit {
+        if let cloud, data.count < iCloudValueSizeLimit {
             cloud.set(data, forKey: key)
             cloud.synchronize()
         }
@@ -248,10 +264,10 @@ final class ProgressStore: ObservableObject {
         defaults.removeObject(forKey: wordSearchKey)
         defaults.removeObject(forKey: triviaKey)
         defaults.removeObject(forKey: coinsKey)
-        cloud.removeObject(forKey: wordSearchKey)
-        cloud.removeObject(forKey: triviaKey)
-        cloud.removeObject(forKey: coinsKey)
-        cloud.synchronize()
+        cloud?.removeObject(forKey: wordSearchKey)
+        cloud?.removeObject(forKey: triviaKey)
+        cloud?.removeObject(forKey: coinsKey)
+        cloud?.synchronize()
     }
     #endif
 }

@@ -4,7 +4,6 @@ struct HomeView: View {
     @EnvironmentObject private var progress: ProgressStore
     @EnvironmentObject private var router: Router
     @EnvironmentObject private var settings: SettingsStore
-    @ObservedObject private var ads = AdsManager.shared
     @State private var quickPlayTheme: GameTheme?
 
     var body: some View {
@@ -30,7 +29,7 @@ struct HomeView: View {
                 themeStrip
 
                 if settings.showSuggestions {
-                    GentleAdCard(ads: ads, houseAd: houseAd) {
+                    SuggestedCard(houseAd: houseAd) {
                         Haptics.light()
                         switch houseAd.action {
                         case .openMultiplayer:
@@ -40,6 +39,8 @@ struct HomeView: View {
                         }
                     }
                 }
+
+                NativeAdCard()
 
                 Spacer(minLength: 20)
             }

@@ -1,77 +1,169 @@
 import GoogleMobileAds
+import SwiftUI
 import UIKit
+import UserMessagingPlatform
 
-/// Loads a single native ad for the "suggested for you" slot on Home. Native
-/// ads hand you the raw content (headline, body, icon, call-to-action) and
-/// let *you* build the UI around it — that's the deliberate choice here,
-/// instead of a traditional banner/interstitial: the ad renders inside the
-/// same card treatment as the app's own content, so it's present without
-/// shouting.
-///
-/// Ships wired to Google's public test ad unit ID, which is safe to build
-/// and run today with no AdMob account. Swap `nativeAdUnitID` for a real ad
-/// unit ID from your own AdMob account before release — test ads are not
-/// eligible for real payouts and Google will flag production traffic on
-/// test IDs.
+/// AdMob, kept deliberately out of the way of play: an opt-in rewarded ad (extra
+/// hint), native ads drawn as the app's own cards on menu screens (see
+/// NativeAdCard), and one interstitial after every 10th solo game of each mode —
+/// shown only once the player leaves the result screen, never mid-game.
+/// The app targets all ages, so every request is child-directed and capped at
+/// G-rated content; the app never asks for App Tracking Transparency.
+/// Debug builds use Google's sample ad units so test taps never hit real inventory.
+/// Android counterpart: `services/AdsManager.kt`.
 @MainActor
 final class AdsManager: NSObject, ObservableObject {
     static let shared = AdsManager()
 
-    static let nativeAdUnitID = "ca-app-pub-3940256099942544/3986624511"
+    #if DEBUG
+    static let nativeID = "ca-app-pub-3940256099942544/3986624511"
+    private static let interstitialID = "ca-app-pub-3940256099942544/4411468910"
+    private static let rewardedID = "ca-app-pub-3940256099942544/1712485313"
+    #else
+    static let nativeID = "ca-app-pub-7633404067070211/5350162423"
+    private static let interstitialID = "ca-app-pub-7633404067070211/1366771106"
+    private static let rewardedID = "ca-app-pub-7633404067070211/4352027096"
+    #endif
 
-    @Published private(set) var nativeAd: NativeAd?
+    /// True once consent allows requests and the SDK is started.
+    @Published private(set) var isReady = false
+    @Published private(set) var rewardedAvailable = false
+    /// True where the law (e.g. GDPR) requires a way to revisit the consent choice; drives Settings' row.
+    @Published private(set) var privacyOptionsRequired = false
 
-    private var adLoader: AdLoader?
-    private var didStartSDK = false
+    private var rewardedAd: RewardedAd?
+    private var rewardedLoading = false
+    private var started = false
+    private var onFinished: (() -> Void)?
 
-    private override init() {
-        super.init()
-    }
+    /// Solo games of one mode between interstitials (word search and trivia count separately).
+    private static let gamesPerInterstitial = 10
+    private var interstitialAd: InterstitialAd?
+    private var interstitialLoading = false
+    private var afterInterstitial: (() -> Void)?
 
+    /// Gathers GDPR/US-state consent through Google's UMP form (shown only where
+    /// required, and only if a message is configured in AdMob), then starts the SDK.
     func start() {
-        guard !didStartSDK else { return }
-        didStartSDK = true
-        MobileAds.shared.start()
+        let parameters = RequestParameters()
+        parameters.isTaggedForUnderAgeOfConsent = true
+        ConsentInformation.shared.requestConsentInfoUpdate(with: parameters) { [weak self] _ in
+            Task { @MainActor in
+                try? await ConsentForm.loadAndPresentIfRequired(from: nil)
+                self?.privacyOptionsRequired = ConsentInformation.shared.privacyOptionsRequirementStatus == .required
+                self?.startIfAllowed()
+            }
+        }
+        // Consent from a previous session lets ads start without waiting on the network.
+        startIfAllowed()
     }
 
-    /// `personalized` should reflect the player's actual App Tracking
-    /// Transparency status — when it's false, the request is explicitly
-    /// marked non-personalized rather than silently guessing.
-    func loadAd(personalized: Bool) {
-        guard let root = UIApplication.shared.connectedScenes
-            .compactMap({ $0 as? UIWindowScene })
-            .flatMap(\.windows)
-            .first(where: \.isKeyWindow)?.rootViewController else {
-            print("Native ad load skipped: no key window yet")
+    /// Re-opens Google's consent form so the player can change their ad privacy choice.
+    func showPrivacyOptions() {
+        Task { try? await ConsentForm.presentPrivacyOptionsForm(from: nil) }
+    }
+
+    private func startIfAllowed() {
+        guard ConsentInformation.shared.canRequestAds, !started else { return }
+        started = true
+        MobileAds.shared.requestConfiguration.ageRestrictedTreatment = .child
+        MobileAds.shared.requestConfiguration.maxAdContentRating = .general
+        MobileAds.shared.start { [weak self] _ in
+            Task { @MainActor in
+                self?.isReady = true
+                self?.loadRewarded()
+                self?.loadInterstitial()
+            }
+        }
+    }
+
+    private func loadRewarded() {
+        guard rewardedAd == nil, !rewardedLoading else { return }
+        rewardedLoading = true
+        Task {
+            defer { rewardedLoading = false }
+            do {
+                let ad = try await RewardedAd.load(with: Self.rewardedID, request: Request())
+                ad.fullScreenContentDelegate = self
+                rewardedAd = ad
+                rewardedAvailable = true
+            } catch {
+                rewardedAd = nil
+                rewardedAvailable = false
+            }
+        }
+    }
+
+    private func loadInterstitial() {
+        guard interstitialAd == nil, !interstitialLoading else { return }
+        interstitialLoading = true
+        Task {
+            defer { interstitialLoading = false }
+            do {
+                let ad = try await InterstitialAd.load(with: Self.interstitialID, request: Request())
+                ad.fullScreenContentDelegate = self
+                interstitialAd = ad
+            } catch {
+                interstitialAd = nil
+            }
+        }
+    }
+
+    /// Call when the player leaves a finished solo game of `mode`. Every 10th game
+    /// of that mode shows an interstitial first; `then` (the navigation they tapped)
+    /// runs once it closes, or straight away otherwise. If no ad is loaded on the
+    /// 10th game, the count stays due so the next game tries again.
+    func afterSoloGame(_ mode: GameMode, then: @escaping () -> Void) {
+        let defaults = UserDefaults.standard
+        let key = "wq.ads.\(mode.rawValue)GamesSinceInterstitial"
+        let played = defaults.integer(forKey: key) + 1
+        guard played >= Self.gamesPerInterstitial, let ad = interstitialAd else {
+            defaults.set(played, forKey: key)
+            if interstitialAd == nil, isReady { loadInterstitial() }
+            then()
             return
         }
+        defaults.set(0, forKey: key)
+        interstitialAd = nil
+        afterInterstitial = then
+        ad.present(from: nil)
+    }
 
-        let loader = AdLoader(
-            adUnitID: Self.nativeAdUnitID,
-            rootViewController: root,
-            adTypes: [.native],
-            options: nil
-        )
-        loader.delegate = self
-        adLoader = loader
+    private func finishInterstitial() {
+        afterInterstitial?()
+        afterInterstitial = nil
+        loadInterstitial()
+    }
 
-        let request = Request()
-        let extras = Extras()
-        extras.additionalParameters = ["npa": personalized ? "0" : "1"]
-        request.register(extras)
-        loader.load(request)
+    /// Shows the rewarded ad if one is loaded. `onReward` runs only if the player
+    /// watched it through; `onFinished` runs once the ad is gone either way.
+    func showRewarded(onReward: @escaping () -> Void, onFinished: @escaping () -> Void = {}) {
+        guard let ad = rewardedAd else {
+            loadRewarded()
+            onFinished()
+            return
+        }
+        rewardedAd = nil
+        rewardedAvailable = false
+        self.onFinished = onFinished
+        ad.present(from: nil) { onReward() }
+    }
+
+    private func finishRewarded() {
+        onFinished?()
+        onFinished = nil
+        loadRewarded()
     }
 }
 
-extension AdsManager: AdLoaderDelegate {
-    func adLoader(_ adLoader: AdLoader, didFailToReceiveAdWithError error: Error) {
-        print("Native ad failed to load: \(error.localizedDescription)")
+extension AdsManager: FullScreenContentDelegate {
+    nonisolated func adDidDismissFullScreenContent(_ ad: FullScreenPresentingAd) {
+        let isInterstitial = ad is InterstitialAd
+        Task { @MainActor in isInterstitial ? finishInterstitial() : finishRewarded() }
     }
-}
 
-extension AdsManager: NativeAdLoaderDelegate {
-    func adLoader(_ adLoader: AdLoader, didReceive nativeAd: NativeAd) {
-        print("Native ad loaded: \(nativeAd.headline ?? "(no headline)")")
-        self.nativeAd = nativeAd
+    nonisolated func ad(_ ad: FullScreenPresentingAd, didFailToPresentFullScreenContentWithError error: Error) {
+        let isInterstitial = ad is InterstitialAd
+        Task { @MainActor in isInterstitial ? finishInterstitial() : finishRewarded() }
     }
 }

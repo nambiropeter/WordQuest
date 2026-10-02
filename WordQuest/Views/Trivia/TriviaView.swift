@@ -20,8 +20,12 @@ struct TriviaView: View {
                 topBar
                 timerBar
                 progressDots
-                questionCard
-                Spacer()
+                // Scrolls on short screens so all four answers stay reachable, while the
+                // Next button below stays pinned in view.
+                ScrollView {
+                    questionCard
+                }
+                .scrollBounceBehavior(.basedOnSize)
                 if vm.answerState != .unanswered {
                     nextButton
                 }
@@ -35,9 +39,10 @@ struct TriviaView: View {
                     theme: theme,
                     level: level,
                     mode: .trivia,
-                    onReplay: { router.replaceTop(with: .triviaGame(theme, level)) },
-                    onNext: { router.replaceTop(with: .triviaGame(theme, level + 1)) },
-                    onHome: { router.popToRoot() }
+                    // Every 10th solo game shows an interstitial before the tapped navigation.
+                    onReplay: { AdsManager.shared.afterSoloGame(.trivia) { router.replaceTop(with: .triviaGame(theme, level)) } },
+                    onNext: { AdsManager.shared.afterSoloGame(.trivia) { router.replaceTop(with: .triviaGame(theme, level + 1)) } },
+                    onHome: { AdsManager.shared.afterSoloGame(.trivia) { router.popToRoot() } }
                 )
             }
         }

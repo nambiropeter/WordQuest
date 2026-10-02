@@ -2,8 +2,6 @@ import SwiftUI
 
 struct RootView: View {
     @StateObject private var router = Router()
-    @EnvironmentObject private var settings: SettingsStore
-    @EnvironmentObject private var tracking: TrackingManager
 
     var body: some View {
         NavigationStack(path: $router.path) {
@@ -16,8 +14,10 @@ struct RootView: View {
                         LevelMapView(mode: mode, theme: theme)
                     case .wordSearchGame(let theme, let level):
                         WordSearchView(theme: theme, level: level)
+                            .id(router.session)
                     case .triviaGame(let theme, let level):
                         TriviaView(theme: theme, level: level)
+                            .id(router.session)
                     case .settings:
                         SettingsView()
                     case .multiplayer(let theme):
@@ -29,10 +29,7 @@ struct RootView: View {
         .tint(.purple)
         .task {
             GameCenterManager.shared.authenticate()
-            if settings.showSuggestions {
-                AdsManager.shared.start()
-                AdsManager.shared.loadAd(personalized: tracking.isAuthorized)
-            }
+            AdsManager.shared.start()
         }
     }
 }

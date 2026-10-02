@@ -1,9 +1,9 @@
 import SwiftUI
 
-/// First-party promotional content shown in the same slot a real ad fills
-/// once one is loaded. Never labeled "Ad" — it's the app promoting itself,
-/// so it's tagged "Suggested" instead, and chosen from what a player has
-/// (and hasn't) already played, entirely on-device.
+/// First-party "suggested for you" content shown on Home — the app promoting
+/// its own unexplored themes or local multiplayer, chosen from what a player
+/// has (and hasn't) already played, entirely on-device. No third-party ad
+/// network is involved.
 struct HouseAd: Identifiable {
     enum Action {
         case openMultiplayer
@@ -25,9 +25,9 @@ enum HouseAdProvider {
         guard progress.levelsCompleted > 0 else { return multiplayerAd }
 
         let themes = ContentStore.shared.themes
-        let leastPlayed = themes.min { a, b in
-            engagement(progress, a) < engagement(progress, b)
-        } ?? themes[0]
+        guard let leastPlayed = themes.min(by: { engagement(progress, $0) < engagement(progress, $1) }) else {
+            return multiplayerAd
+        }
 
         return HouseAd(
             title: "Try \(leastPlayed.name)",

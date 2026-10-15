@@ -8,10 +8,12 @@ options:
 settings:
   base:
     SWIFT_VERSION: "5.0"
-    # Personal Team "Anthony Mamati". Left empty, every `xcodegen generate`
+    # Apple Developer Program team. Left empty, every `xcodegen generate`
     # reset the team and Xcode went back to "Signing requires a development
     # team" — picking one in the Signing & Capabilities editor doesn't survive
-    # regeneration, since this project.yml is the source of truth.
+    # regeneration, since this project.yml is the source of truth. If the paid
+    # membership was issued a new Team ID (developer.apple.com > Membership
+    # details), put it here.
     # A Team ID is not a secret; it ships inside every signed build.
     DEVELOPMENT_TEAM: 84LN324B84
     CODE_SIGN_STYLE: Automatic
@@ -53,6 +55,14 @@ targets:
         UIApplicationSceneManifest:
           UIApplicationSupportsMultipleScenes: false
         CFBundleDisplayName: WordQuest
+        # Taken from MARKETING_VERSION / CURRENT_PROJECT_VERSION below; hardcoded
+        # values would ship every upload as 1.0 (1), which App Store Connect
+        # rejects after the first build.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        # Only HTTPS and Apple's own networking — exempt from export compliance,
+        # so uploads skip the encryption questionnaire.
+        ITSAppUsesNonExemptEncryption: false
         NSLocalNetworkUsageDescription: "WordQuest uses your local network to find nearby friends for local multiplayer trivia."
         NSBonjourServices:
           - _wq-trivia._tcp
@@ -72,15 +82,10 @@ targets:
         GENERATE_INFOPLIST_FILE: YES
         MARKETING_VERSION: "1.0.2"
         CURRENT_PROJECT_VERSION: "3"
-        # No CODE_SIGN_ENTITLEMENTS: the app previously declared the iCloud
-        # key-value store and Game Center capabilities, and Apple issues
-        # neither to a free Personal Team — Xcode refuses to create a
-        # development provisioning profile at all when they're present.
-        # To restore them after joining the paid Developer Program, re-add
-        # WordQuest/WordQuest.entitlements with the
-        # com.apple.developer.ubiquity-kvstore-identifier and
-        # com.apple.developer.game-center keys, point this setting at it,
-        # and flip ProgressStore.isCloudSyncEnabled to true.
+        # Game Center and the iCloud key-value store (progress sync) need the
+        # paid Developer Program. ProgressStore.isCloudSyncEnabled must stay
+        # true only while this entitlements file is wired up.
+        CODE_SIGN_ENTITLEMENTS: WordQuest/WordQuest.entitlements
 
   WordQuestActivity:
     type: app-extension
@@ -93,6 +98,9 @@ targets:
       path: WordQuestActivity/Info.plist
       properties:
         CFBundleDisplayName: WordQuest Activity
+        # Must match the app's version and build or the upload is rejected.
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         NSExtension:
           NSExtensionPointIdentifier: com.apple.widgetkit-extension
     settings:

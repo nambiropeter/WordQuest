@@ -44,15 +44,12 @@ final class ProgressStore: ObservableObject {
     /// iCloud key-value sync needs the `com.apple.developer.ubiquity-kvstore-identifier`
     /// entitlement, and Apple issues that only to paid Developer Program
     /// accounts — with it declared, Xcode won't even create a development
-    /// provisioning profile for a free Personal Team. So the whole cloud path
-    /// is off by default and every call below is optional-chained through
-    /// `cloud`, leaving UserDefaults (which was always the primary store, and
-    /// is written first on every save) to carry progress on its own.
-    ///
-    /// After joining the paid program: restore the entitlements file and its
-    /// `CODE_SIGN_ENTITLEMENTS` setting in project.yml, then flip this to
-    /// `true`. Nothing else has to change — the merge logic is intact.
-    static let isCloudSyncEnabled = false
+    /// provisioning profile for a free Personal Team. So every call below is
+    /// optional-chained through `cloud`, and setting this to `false` (with the
+    /// entitlements file unhooked in project.yml) leaves UserDefaults, which
+    /// is always the primary store and written first on every save, to carry
+    /// progress on its own.
+    static let isCloudSyncEnabled = true
 
     private let defaults = UserDefaults.standard
     private let cloud: NSUbiquitousKeyValueStore? = isCloudSyncEnabled ? .default : nil

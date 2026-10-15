@@ -27,3 +27,6 @@ DerivedData/
 # Xcode "Archive / Distribute App" output — build artifacts, not source.
 *.xcarchive
 *.ipa
+
+# Local archive/export output from command-line distribution builds
+build/

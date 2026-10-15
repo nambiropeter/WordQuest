@@ -28,8 +28,40 @@ struct RootView: View {
         .environmentObject(router)
         .tint(.purple)
         .task {
+            #if DEBUG
+            // App Store screenshots: `-screenshotRoute <route>` opens that screen
+            // directly and keeps Game Center / ad consent sheets out of the shot.
+            if UserDefaults.standard.string(forKey: "screenshotRoute") != nil {
+                if let route = Self.screenshotRoute { router.push(route) }
+                return
+            }
+            #endif
             GameCenterManager.shared.authenticate()
             AdsManager.shared.start()
         }
     }
+
+    #if DEBUG
+    /// "themes:wordSearch", "map:trivia:science", "word:animals:12", "trivia:history:4",
+    /// "multiplayer", or "home" (anything unrecognised stays on the home screen).
+    private static var screenshotRoute: AppRoute? {
+        guard let arg = UserDefaults.standard.string(forKey: "screenshotRoute") else { return nil }
+        let parts = arg.split(separator: ":").map(String.init)
+        let store = ContentStore.shared
+        switch parts.first {
+        case "themes":
+            return .themeSelect(GameMode(rawValue: parts[1]) ?? .wordSearch)
+        case "map":
+            return .levelMap(GameMode(rawValue: parts[1]) ?? .wordSearch, store.theme(id: parts[2]))
+        case "word":
+            return .wordSearchGame(store.theme(id: parts[1]), Int(parts[2]) ?? 1)
+        case "trivia":
+            return .triviaGame(store.theme(id: parts[1]), Int(parts[2]) ?? 1)
+        case "multiplayer":
+            return .multiplayer(nil)
+        default:
+            return nil
+        }
+    }
+    #endif
 }

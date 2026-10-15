@@ -776,7 +776,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WordQuest/WordQuest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordQuest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -797,7 +797,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WordQuest/WordQuest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordQuest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -814,7 +814,7 @@
 		A5D679CE6CB68967C6E0CB9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordQuestActivity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -834,7 +834,7 @@
 		D3DC81A68E4EDC7B6E491AF5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordQuestActivity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

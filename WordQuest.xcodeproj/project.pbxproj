@@ -13,7 +13,6 @@
 		0B27D55AFD427C225D3401F2 /* TriviaActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F90ECAA77A4CFCECFA444C /* TriviaActivityManager.swift */; };
 		1026EEA8CD44A7D927216436 /* words_science.json in Resources */ = {isa = PBXBuildFile; fileRef = 3070D60CBEB480CEEC85D704 /* words_science.json */; };
 		103E86CDFFB3B20FF204B9A1 /* MultiplayerRoomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1282DD331A55E309789CA455 /* MultiplayerRoomView.swift */; };
-		136253FD809C17C12F633295 /* GoogleUserMessagingPlatform in Frameworks */ = {isa = PBXBuildFile; productRef = 587008D325CD69E74D7780EA /* GoogleUserMessagingPlatform */; };
 		1BA2F2901656970931E45CC5 /* MultiplayerLobbyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4AE4F6EFD328F990EBBB27CE /* MultiplayerLobbyView.swift */; };
 		2150794C660C255CE23F3928 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06AA8FDECC3E60FCB871EDD4 /* GameKit.framework */; };
 		215637B2F880F04000AA96A4 /* LevelProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DC99756E71A7AEEA26D09F /* LevelProgress.swift */; };
@@ -73,7 +72,7 @@
 		E61B47B8D8CAA4499B500376 /* HapticsPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286B1F54DE3783AF3672344D /* HapticsPlayer.swift */; };
 		EAFEF805B9C1884079DADD92 /* WordQuestActivity.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DB33CE3445C43BE76F00CD79 /* WordQuestActivity.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		EB0EFEE4800B9C19CC4696A7 /* GameCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9BCE6BEAEFFD546745F621 /* GameCenterManager.swift */; };
-		ED5085299D8069466D3B1932 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 68A3130EEC902464C6DEEF0A /* GoogleMobileAds */; };
+		ED5085299D8069466D3B1932 /* FBAudienceNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = 50EA7D45F46465DABCD2B26B /* FBAudienceNetwork */; };
 		F381C9D8A79AC6ECB02F0F01 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 712408E7D6F19939356CA0CD /* PrivacyInfo.xcprivacy */; };
 		F53653B15C01634AB54C89FA /* LevelMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACE8A7FA944CC0DADC29E0C /* LevelMapView.swift */; };
 		FCB93642A50878ABC3FA6999 /* ShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CDE9A359F2FC6CF3280BF8 /* ShareCardView.swift */; };
@@ -185,8 +184,7 @@
 			files = (
 				2150794C660C255CE23F3928 /* GameKit.framework in Frameworks */,
 				06BE06BAD5D662040410776E /* CoreHaptics.framework in Frameworks */,
-				ED5085299D8069466D3B1932 /* GoogleMobileAds in Frameworks */,
-				136253FD809C17C12F633295 /* GoogleUserMessagingPlatform in Frameworks */,
+				ED5085299D8069466D3B1932 /* FBAudienceNetwork in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -473,8 +471,7 @@
 			);
 			name = WordQuest;
 			packageProductDependencies = (
-				68A3130EEC902464C6DEEF0A /* GoogleMobileAds */,
-				587008D325CD69E74D7780EA /* GoogleUserMessagingPlatform */,
+				50EA7D45F46465DABCD2B26B /* FBAudienceNetwork */,
 			);
 			productName = WordQuest;
 			productReference = 85A2AA6B26F38C7BE7089E99 /* WordQuest.app */;
@@ -526,8 +523,7 @@
 			mainGroup = 8F80A4E942770C2384DF1067;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				31363BB107DD3B0E0EFB4453 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
-				C5FB75FE7A03E92542A62938 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */,
+				AA1004A46361DC60A49FD15D /* XCRemoteSwiftPackageReference "FBAudienceNetwork" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 44ED28EC01B2842C250DF8B6 /* Products */;
@@ -776,14 +772,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WordQuest/WordQuest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordQuest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mamatiquest.app;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -797,14 +793,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WordQuest/WordQuest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordQuest/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mamatiquest.app;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -814,7 +810,7 @@
 		A5D679CE6CB68967C6E0CB9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordQuestActivity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -822,7 +818,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mamatiquest.app.activity;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
@@ -834,7 +830,7 @@
 		D3DC81A68E4EDC7B6E491AF5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 4;
+				CURRENT_PROJECT_VERSION = 5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordQuestActivity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -842,7 +838,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.2;
+				MARKETING_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mamatiquest.app.activity;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
@@ -884,34 +880,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		31363BB107DD3B0E0EFB4453 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+		AA1004A46361DC60A49FD15D /* XCRemoteSwiftPackageReference "FBAudienceNetwork" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads";
+			repositoryURL = "https://github.com/facebook/FBAudienceNetwork";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 13.11.0;
-			};
-		};
-		C5FB75FE7A03E92542A62938 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/googleads/swift-package-manager-google-user-messaging-platform";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 3.1.0;
+				minimumVersion = 6.22.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		587008D325CD69E74D7780EA /* GoogleUserMessagingPlatform */ = {
+		50EA7D45F46465DABCD2B26B /* FBAudienceNetwork */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = C5FB75FE7A03E92542A62938 /* XCRemoteSwiftPackageReference "swift-package-manager-google-user-messaging-platform" */;
-			productName = GoogleUserMessagingPlatform;
-		};
-		68A3130EEC902464C6DEEF0A /* GoogleMobileAds */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 31363BB107DD3B0E0EFB4453 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
-			productName = GoogleMobileAds;
+			package = AA1004A46361DC60A49FD15D /* XCRemoteSwiftPackageReference "FBAudienceNetwork" */;
+			productName = FBAudienceNetwork;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

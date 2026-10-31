@@ -3,7 +3,7 @@ import SwiftUI
 struct SettingsView: View {
     @EnvironmentObject private var settings: SettingsStore
     @EnvironmentObject private var progress: ProgressStore
-    @ObservedObject private var ads = AdsManager.shared
+    @ObservedObject private var gameCenter = GameCenterManager.shared
     @State private var showResetConfirmation = false
 
     var body: some View {
@@ -46,12 +46,24 @@ struct SettingsView: View {
                 iCloudStatusFooter
             }
 
-            // Only where the law (e.g. GDPR) requires a way to change the ad consent choice.
-            if ads.privacyOptionsRequired {
-                Section("Ads") {
-                    Button("Ad Privacy Choices") { ads.showPrivacyOptions() }
+            Section {
+                Button { gameCenter.open(.leaderboards) } label: {
+                    Label("Leaderboards", systemImage: "list.number")
+                }
+                Button { gameCenter.open(.achievements) } label: {
+                    Label("Achievements", systemImage: "trophy.fill")
+                }
+                Button { gameCenter.open(.profile) } label: {
+                    Label("Game Center Profile", systemImage: "person.crop.circle")
+                }
+            } header: {
+                Text("Game Center")
+            } footer: {
+                if !gameCenter.isAuthenticated {
+                    Text("Sign in to Game Center in the Settings app to see leaderboards and achievements.")
                 }
             }
+            .disabled(!gameCenter.isAuthenticated)
 
             #if DEBUG
             Section("Debug") {

@@ -1,10 +1,11 @@
-import GoogleMobileAds
+import FBAudienceNetwork
 import SwiftUI
 import UIKit
 
-/// A native ad drawn as one of the app's own cards — same shape, spacing and
-/// colors as Home's `SuggestedCard` — with a clear "Ad" label (required by
-/// AdMob policy). Takes no space until an ad has actually loaded.
+/// A Meta native banner ad drawn as one of the app's own cards — same shape,
+/// spacing and colors as Home's `SuggestedCard` — with the advertiser name, a
+/// "Sponsored" label and the AdChoices icon (all required by Audience Network
+/// policy). Takes no space until an ad has actually loaded.
 /// Android counterpart: `ui/components/NativeAdCard.kt`.
 struct NativeAdCard: View {
     @ObservedObject private var ads = AdsManager.shared
@@ -27,33 +28,43 @@ struct NativeAdCard: View {
 }
 
 @MainActor
-private final class NativeAdLoader: NSObject, ObservableObject, NativeAdLoaderDelegate {
-    @Published private(set) var ad: NativeAd?
-    private var adLoader: AdLoader?
+private final class NativeAdLoader: NSObject, ObservableObject, FBNativeBannerAdDelegate {
+    @Published private(set) var ad: FBNativeBannerAd?
+    private var pending: FBNativeBannerAd?
 
     func load() {
-        guard ad == nil, adLoader == nil else { return }
-        let loader = AdLoader(adUnitID: AdsManager.nativeID, rootViewController: nil, adTypes: [.native], options: nil)
-        loader.delegate = self
-        adLoader = loader
-        loader.load(Request())
+        guard ad == nil, pending == nil else { return }
+        let banner = FBNativeBannerAd(placementID: AdsManager.nativeBannerID)
+        banner.delegate = self
+        pending = banner
+        banner.loadAd()
     }
 
-    nonisolated func adLoader(_ adLoader: AdLoader, didReceive nativeAd: NativeAd) {
-        MainActor.assumeIsolated { ad = nativeAd }
+    nonisolated func nativeBannerAdDidLoad(_ nativeBannerAd: FBNativeBannerAd) {
+        MainActor.assumeIsolated {
+            pending = nil
+            if nativeBannerAd.isAdValid { ad = nativeBannerAd }
+        }
     }
 
-    nonisolated func adLoader(_ adLoader: AdLoader, didFailToReceiveAdWithError error: Error) {}
+    nonisolated func nativeBannerAd(_ nativeBannerAd: FBNativeBannerAd, didFailWithError error: Error) {
+        MainActor.assumeIsolated {
+            print("Native banner failed: \(error.localizedDescription)")
+            pending = nil
+        }
+    }
 }
 
-/// Plain UIKit rather than SwiftUI: AdMob tracks impressions and clicks through
-/// the asset views registered on `NativeAdView`, so each asset has to be a real UIView.
+/// Plain UIKit rather than SwiftUI: Audience Network tracks impressions and clicks
+/// through the views registered with the ad, so each asset has to be a real UIView.
 private struct NativeCardRepresentable: UIViewRepresentable {
-    let ad: NativeAd
+    let ad: FBNativeBannerAd
 
     func makeUIView(context: Context) -> NativeCardView { NativeCardView() }
 
     func updateUIView(_ view: NativeCardView, context: Context) { view.bind(ad) }
+
+    static func dismantleUIView(_ view: NativeCardView, coordinator: ()) { view.unbind() }
 
     func sizeThatFits(_ proposal: ProposedViewSize, uiView: NativeCardView, context: Context) -> CGSize? {
         let width = proposal.width ?? UIScreen.main.bounds.width
@@ -66,11 +77,14 @@ private struct NativeCardRepresentable: UIViewRepresentable {
     }
 }
 
-private final class NativeCardView: NativeAdView {
-    private let icon = UIImageView()
+private final class NativeCardView: UIView {
+    private let icon = FBAdIconView()
+    private let badge = PaddedLabel()
     private let headline = UILabel()
     private let body = UILabel()
     private let cta = UIButton(type: .custom)
+    private let adOptions = FBAdOptionsView()
+    private weak var boundAd: FBNativeBannerAd?
 
     init() {
         super.init(frame: .zero)
@@ -78,15 +92,12 @@ private final class NativeCardView: NativeAdView {
         layer.cornerRadius = 18
         layer.cornerCurve = .continuous
 
-        icon.contentMode = .scaleAspectFill
         icon.layer.cornerRadius = 12
         icon.layer.cornerCurve = .continuous
         icon.clipsToBounds = true
         icon.widthAnchor.constraint(equalToConstant: 44).isActive = true
         icon.heightAnchor.constraint(equalToConstant: 44).isActive = true
 
-        let badge = PaddedLabel()
-        badge.text = "Ad"
         badge.font = .systemFont(ofSize: 9, weight: .bold)
         badge.textColor = .secondaryLabel
         badge.backgroundColor = .tertiarySystemFill
@@ -103,6 +114,12 @@ private final class NativeCardView: NativeAdView {
         body.textColor = .secondaryLabel
         body.numberOfLines = 2
 
+        adOptions.useSingleIcon = true
+        adOptions.foregroundColor = .secondaryLabel
+        adOptions.translatesAutoresizingMaskIntoConstraints = false
+        adOptions.widthAnchor.constraint(equalToConstant: FBAdOptionsViewWidth).isActive = true
+        adOptions.heightAnchor.constraint(equalToConstant: FBAdOptionsViewHeight).isActive = true
+
         let titleRow = UIStackView(arrangedSubviews: [badge, headline])
         titleRow.spacing = 6
         titleRow.alignment = .center
@@ -117,8 +134,7 @@ private final class NativeCardView: NativeAdView {
         config.cornerStyle = .capsule
         config.contentInsets = NSDirectionalEdgeInsets(top: 7, leading: 14, bottom: 7, trailing: 14)
         cta.configuration = config
-        // AdMob handles the tap through the registered view; the button itself must not swallow it.
-        cta.isUserInteractionEnabled = false
+        // No action of its own: Audience Network attaches its tap handling to the registered clickable views.
         cta.setContentHuggingPriority(.required, for: .horizontal)
         cta.setContentCompressionResistancePriority(.required, for: .horizontal)
 
@@ -128,33 +144,41 @@ private final class NativeCardView: NativeAdView {
         row.setCustomSpacing(10, after: texts)
         row.translatesAutoresizingMaskIntoConstraints = false
         addSubview(row)
+        // AdChoices sits in the card's top-right corner, clear of the call-to-action.
+        addSubview(adOptions)
         NSLayoutConstraint.activate([
+            adOptions.topAnchor.constraint(equalTo: topAnchor, constant: 4),
+            adOptions.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             row.topAnchor.constraint(equalTo: topAnchor, constant: 14),
             row.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -14),
             row.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 14),
             row.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -14),
         ])
-
-        iconView = icon
-        headlineView = headline
-        bodyView = body
-        callToActionView = cta
     }
 
     required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
 
-    func bind(_ ad: NativeAd) {
-        guard nativeAd !== ad else { return }
-        headline.text = ad.headline
-        body.text = ad.body
-        body.isHidden = ad.body?.isEmpty ?? true
+    func bind(_ ad: FBNativeBannerAd) {
+        guard boundAd !== ad else { return }
+        boundAd?.unregisterView()
+        badge.text = ad.sponsoredTranslation.flatMap { $0.isEmpty ? nil : $0 } ?? "Sponsored"
+        headline.text = ad.advertiserName
+        let bodyText = ad.bodyText.flatMap { $0.isEmpty ? nil : $0 } ?? ad.socialContext
+        body.text = bodyText
+        body.isHidden = bodyText?.isEmpty ?? true
         var title = AttributedString(ad.callToAction ?? "")
         title.font = Self.rounded(.caption1, weight: .bold)
         cta.configuration?.attributedTitle = title
         cta.isHidden = ad.callToAction?.isEmpty ?? true
-        icon.image = ad.icon?.image
-        icon.isHidden = ad.icon == nil
-        nativeAd = ad
+        ad.registerView(forInteraction: self, iconView: icon, viewController: AdsManager.topViewController,
+                        clickableViews: [icon, headline, cta])
+        adOptions.nativeAd = ad
+        boundAd = ad
+    }
+
+    func unbind() {
+        boundAd?.unregisterView()
+        boundAd = nil
     }
 
     private static func rounded(_ style: UIFont.TextStyle, weight: UIFont.Weight) -> UIFont {

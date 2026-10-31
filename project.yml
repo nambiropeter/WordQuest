@@ -21,12 +21,9 @@ settings:
     ENABLE_PREVIEWS: YES
 
 packages:
-  GoogleMobileAds:
-    url: https://github.com/googleads/swift-package-manager-google-mobile-ads
-    from: 13.11.0
-  GoogleUserMessagingPlatform:
-    url: https://github.com/googleads/swift-package-manager-google-user-messaging-platform
-    from: 3.1.0
+  FBAudienceNetwork:
+    url: https://github.com/facebook/FBAudienceNetwork
+    from: 6.22.0
 
 targets:
   WordQuest:
@@ -37,8 +34,7 @@ targets:
     dependencies:
       - sdk: GameKit.framework
       - sdk: CoreHaptics.framework
-      - package: GoogleMobileAds
-      - package: GoogleUserMessagingPlatform
+      - package: FBAudienceNetwork
       - target: WordQuestActivity
         embed: true
     info:
@@ -68,20 +64,19 @@ targets:
           - _wq-trivia._tcp
         NSSupportsLiveActivities: true
         NSSupportsLiveActivitiesFrequentUpdates: false
-        # AdMob app ID for the "WordQuest" iOS app. Ad unit IDs live in AdsManager.swift.
-        GADApplicationIdentifier: ca-app-pub-7633404067070211~3422088803
-        # Turns off the debug-only "native ad validator" popup over test native ads.
-        GADNativeAdValidatorEnabled: false
+        # Meta Audience Network's SKAdNetwork IDs (install attribution without
+        # tracking). Placement IDs live in AdsManager.swift.
         SKAdNetworkItems:
-          - SKAdNetworkIdentifier: cstr6suwn9.skadnetwork
+          - SKAdNetworkIdentifier: v9wttpbfk9.skadnetwork
+          - SKAdNetworkIdentifier: n38lu8286q.skadnetwork
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.mamatiquest.app
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
         ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
         GENERATE_INFOPLIST_FILE: YES
-        MARKETING_VERSION: "1.0.2"
-        CURRENT_PROJECT_VERSION: "4"
+        MARKETING_VERSION: "1.0.3"
+        CURRENT_PROJECT_VERSION: "5"
         # Game Center and the iCloud key-value store (progress sync) need the
         # paid Developer Program. ProgressStore.isCloudSyncEnabled must stay
         # true only while this entitlements file is wired up.
@@ -107,8 +102,8 @@ targets:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.mamatiquest.app.activity
         GENERATE_INFOPLIST_FILE: YES
-        MARKETING_VERSION: "1.0.2"
-        CURRENT_PROJECT_VERSION: "4"
+        MARKETING_VERSION: "1.0.3"
+        CURRENT_PROJECT_VERSION: "5"
         SWIFT_VERSION: "5.0"
         TARGETED_DEVICE_FAMILY: "1,2"
         SKIP_INSTALL: NO

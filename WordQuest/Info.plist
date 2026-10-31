@@ -20,10 +20,6 @@
 	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
-	<key>GADApplicationIdentifier</key>
-	<string>ca-app-pub-7633404067070211~3422088803</string>
-	<key>GADNativeAdValidatorEnabled</key>
-	<false/>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>NSBonjourServices</key>
@@ -40,7 +36,11 @@
 	<array>
 		<dict>
 			<key>SKAdNetworkIdentifier</key>
-			<string>cstr6suwn9.skadnetwork</string>
+			<string>v9wttpbfk9.skadnetwork</string>
+		</dict>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>n38lu8286q.skadnetwork</string>
 		</dict>
 	</array>
 	<key>UIApplicationSceneManifest</key>

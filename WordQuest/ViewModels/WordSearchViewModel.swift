@@ -6,13 +6,18 @@ final class WordSearchViewModel: ObservableObject {
     @Published private(set) var puzzle: WordSearchPuzzle
     @Published private(set) var currentSelection: [GridPosition] = []
     @Published private(set) var foundPaths: [[GridPosition]] = []
-    @Published private(set) var hintedPosition: GridPosition?
+    /// Letters revealed so far for the word currently being hinted, in
+    /// spelling order. Each hint extends it by one letter, tracing the word
+    /// like a match line, and it stays on screen until that word is found.
+    @Published private(set) var hintedPath: [GridPosition] = []
     @Published private(set) var hintsRemaining: Int
+    @Published private(set) var hintsUsed = 0
     @Published private(set) var elapsedSeconds: Int = 0
     @Published private(set) var isComplete = false
     @Published var lastFoundWasCorrect: Bool?
 
     private var dragStart: GridPosition?
+    private var hintedWordIndex: Int?
     private var timer: Timer?
     let level: Int
     let theme: GameTheme
@@ -67,6 +72,10 @@ final class WordSearchViewModel: ObservableObject {
             if placed.path == selection || placed.path == selection.reversed() {
                 puzzle.placedWords[index].isFound = true
                 foundPaths.append(placed.path)
+                if index == hintedWordIndex {
+                    hintedWordIndex = nil
+                    hintedPath = []
+                }
                 lastFoundWasCorrect = true
                 SoundManager.wordFound()
                 Haptics.success()
@@ -78,16 +87,26 @@ final class WordSearchViewModel: ObservableObject {
         Haptics.error()
     }
 
+    /// Reveals the next letter of the word being hinted, starting a new
+    /// unfound word when there isn't one in progress (or it's fully shown).
     func useHint() {
         guard hintsRemaining > 0 else { return }
-        guard let target = puzzle.placedWords.first(where: { !$0.isFound }) else { return }
-        hintsRemaining -= 1
-        hintedPosition = target.path.first
-        Haptics.light()
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) { [weak self] in
-            self?.hintedPosition = nil
+        if let index = hintedWordIndex, hintedPath.count < puzzle.placedWords[index].path.count {
+            hintedPath = Array(puzzle.placedWords[index].path.prefix(hintedPath.count + 1))
+        } else if let index = puzzle.placedWords.indices.first(where: { !puzzle.placedWords[$0].isFound && $0 != hintedWordIndex }) {
+            hintedWordIndex = index
+            hintedPath = [puzzle.placedWords[index].path[0]]
+        } else {
+            return
         }
+        hintsRemaining -= 1
+        hintsUsed += 1
+        Haptics.light()
+    }
+
+    /// Reward for watching an opt-in rewarded ad.
+    func grantHint() {
+        hintsRemaining += 1
     }
 
     private func checkCompletion() {
@@ -110,8 +129,7 @@ final class WordSearchViewModel: ObservableObject {
 
     func computeStars() -> Int {
         let parTime = 20 + totalWords * 15
-        let usedHints = puzzle.hintsAllowed - hintsRemaining
-        if elapsedSeconds <= parTime && usedHints == 0 { return 3 }
+        if elapsedSeconds <= parTime && hintsUsed == 0 { return 3 }
         if elapsedSeconds <= parTime * 2 { return 2 }
         return 1
     }

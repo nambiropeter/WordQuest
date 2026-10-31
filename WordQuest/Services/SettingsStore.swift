@@ -48,21 +48,12 @@ final class SettingsStore: ObservableObject {
         didSet { UserDefaults.standard.set(showSuggestions, forKey: "wq.settings.showSuggestions") }
     }
 
-    /// Whether the player has opted in to tracking-based ad personalization.
-    /// This only reflects intent — the actual permission lives in iOS's App
-    /// Tracking Transparency system prompt (see TrackingManager) and always
-    /// wins over this flag.
-    @Published var personalizedAdsEnabled: Bool {
-        didSet { UserDefaults.standard.set(personalizedAdsEnabled, forKey: "wq.settings.personalizedAds") }
-    }
-
     private init() {
         let defaults = UserDefaults.standard
         self.soundEnabled = defaults.object(forKey: "wq.settings.sound") as? Bool ?? true
         self.hapticsEnabled = defaults.object(forKey: "wq.settings.haptics") as? Bool ?? true
         self.appearance = AppAppearance(rawValue: defaults.string(forKey: "wq.settings.appearance") ?? "") ?? .system
         self.showSuggestions = defaults.object(forKey: "wq.settings.showSuggestions") as? Bool ?? true
-        self.personalizedAdsEnabled = defaults.object(forKey: "wq.settings.personalizedAds") as? Bool ?? false
         SoundManager.isEnabled = soundEnabled
         Haptics.isEnabled = hapticsEnabled
     }

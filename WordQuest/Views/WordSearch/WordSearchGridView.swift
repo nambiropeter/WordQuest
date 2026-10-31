@@ -17,6 +17,12 @@ struct WordSearchGridView: View {
                         .accessibilityHidden(true)
                 }
 
+                // Hint trail: the revealed letters of the hinted word, joined like a match in progress.
+                if vm.hintedPath.count > 1 {
+                    lineShape(path: vm.hintedPath, cellSize: cellSize, color: theme.primaryColor.opacity(0.25))
+                        .accessibilityHidden(true)
+                }
+
                 if vm.currentSelection.count > 1 {
                     lineShape(path: vm.currentSelection, cellSize: cellSize, color: theme.secondaryColor.opacity(0.5))
                         .accessibilityHidden(true)
@@ -51,7 +57,7 @@ struct WordSearchGridView: View {
         let pos = GridPosition(row: row, col: col)
         let letter: String = String(vm.puzzle.letters[row][col])
         let fontSize: CGFloat = cellSize * 0.46
-        let highlightColor: Color = vm.hintedPosition == pos ? vm.puzzle.theme.primaryColor.opacity(0.55) : Color.clear
+        let highlightColor: Color = vm.hintedPath.contains(pos) ? vm.puzzle.theme.primaryColor.opacity(0.55) : Color.clear
         let centerX: CGFloat = CGFloat(col) * cellSize + cellSize / 2
         let centerY: CGFloat = CGFloat(row) * cellSize + cellSize / 2
 
@@ -64,7 +70,7 @@ struct WordSearchGridView: View {
 
         return withBackground
             .position(x: centerX, y: centerY)
-            .animation(.easeInOut(duration: 0.2), value: vm.hintedPosition)
+            .animation(.easeInOut(duration: 0.2), value: vm.hintedPath)
             .accessibilityElement(children: .ignore)
             .accessibilityLabel("Row \(row + 1), column \(col + 1): \(letter)")
             .accessibilityAddTraits(.isButton)

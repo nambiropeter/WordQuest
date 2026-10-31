@@ -1,5 +1,4 @@
 import SwiftUI
-import MultipeerConnectivity
 
 struct MultiplayerLobbyView: View {
     let initialTheme: GameTheme?
@@ -63,7 +62,7 @@ struct MultiplayerLobbyView: View {
                     Text("Play trivia with friends nearby")
                         .font(.system(.title3, design: .rounded, weight: .bold))
                         .multilineTextAlignment(.center)
-                    Text("No internet needed — connects over Bluetooth or your local Wi-Fi network automatically. Up to \(MultiplayerViewModel.maxPlayers) players per game.")
+                    Text("No internet needed — everyone joins the same Wi-Fi network (or one phone's hotspot). Works between iPhone and Android. Up to \(MultiplayerViewModel.maxPlayers) players per game.")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                         .multilineTextAlignment(.center)
@@ -123,7 +122,7 @@ struct MultiplayerLobbyView: View {
 
             if vm.discoveredHosts.isEmpty {
                 Spacer()
-                Text("Make sure a friend has tapped \"Host a Game\" nearby.\nBluetooth and Local Network access must be allowed.")
+                Text("Make sure a friend has tapped \"Host a Game\" and that you're both on the same Wi-Fi network or hotspot.\nLocal Network access must be allowed.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
                     .multilineTextAlignment(.center)
@@ -153,7 +152,7 @@ struct MultiplayerLobbyView: View {
         }
     }
 
-    private func displayName(for peer: MCPeerID) -> String {
-        String(peer.displayName.split(separator: "#").first ?? Substring(peer.displayName))
+    private func displayName(for host: MultiplayerService.DiscoveredHost) -> String {
+        String(host.name.split(separator: "#").first ?? Substring(host.name))
     }
 }

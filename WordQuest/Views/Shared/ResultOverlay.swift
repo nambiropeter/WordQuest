@@ -14,10 +14,6 @@ struct ResultOverlay: View {
 
     private var hasNextLevel: Bool { level < GameMode.levelCount }
 
-    private var shareText: String {
-        "I just scored \(score) points on Level \(level) (\(theme.name)) in \(mode.displayName) on WordQuest! 🧩"
-    }
-
     var body: some View {
         ZStack {
             Color.black.opacity(0.55).ignoresSafeArea()
@@ -44,7 +40,7 @@ struct ResultOverlay: View {
                     .foregroundStyle(.white.opacity(0.7))
 
                 if stars > 0 {
-                    ShareLink(item: shareText) {
+                    ShareCardButton(card: .level(score: score, stars: stars, level: level, theme: theme, mode: mode)) {
                         Label("Share Result", systemImage: "square.and.arrow.up")
                             .font(.system(.caption, design: .rounded, weight: .semibold))
                             .padding(.horizontal, 14)
@@ -71,6 +67,8 @@ struct ResultOverlay: View {
                     HStack(spacing: 12) {
                         Button(action: onReplay) {
                             Label("Replay", systemImage: "arrow.counterclockwise")
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
                                 .font(.system(.subheadline, design: .rounded, weight: .semibold))
                                 .frame(maxWidth: .infinity)
                                 .padding()
@@ -80,6 +78,8 @@ struct ResultOverlay: View {
                         }
                         Button(action: onHome) {
                             Label("Home", systemImage: "house.fill")
+                                .lineLimit(1)
+                                .minimumScaleFactor(0.8)
                                 .font(.system(.subheadline, design: .rounded, weight: .semibold))
                                 .frame(maxWidth: .infinity)
                                 .padding()
@@ -91,9 +91,11 @@ struct ResultOverlay: View {
                 }
                 .padding(.top, 8)
             }
-            .padding(28)
+            .padding(24)
             .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 28))
-            .padding(32)
+            // The card's text is white, so keep its material dark even in light mode.
+            .environment(\.colorScheme, .dark)
+            .padding(24)
         }
         .transition(reduceMotion ? .opacity : .opacity.combined(with: .scale(scale: 0.9)))
     }

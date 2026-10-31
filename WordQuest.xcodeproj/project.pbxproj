@@ -37,9 +37,9 @@
 		5538F3354746ECA70EFA9F6D /* ThemeSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB19B10AFD80BDFC9BBA85AF /* ThemeSelectView.swift */; };
 		565E0FC8BDA0FD6AE1937384 /* HapticsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B852892C66B598BA1DCDD258 /* HapticsManager.swift */; };
 		599CD04024E9E8B3964D6A14 /* WordQuestApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DC497B02065BC62BDECE02E /* WordQuestApp.swift */; };
-		5DE6A96D5F1AA2A03A93475B /* NativeAdContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8132B70E6CC6349A683AED1 /* NativeAdContainerView.swift */; };
 		5F1FB01704512B08C11E6C77 /* WordSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AED710385DBBFF490FF5F1B /* WordSearchView.swift */; };
 		605EB5A36B25D159636C2D17 /* WordSearchGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C2F7D8374E02B9F6202D9872 /* WordSearchGenerator.swift */; };
+		6599061879A7FC32451F0DD6 /* SuggestedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C5A8021EC6AC98A9AED886 /* SuggestedCard.swift */; };
 		6737B76BECEC918B15E81395 /* MultiplayerGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 34F43F65D7E7B24B6C7932DC /* MultiplayerGameView.swift */; };
 		68819B30DF4233F83D9AA6CA /* words_movies.json in Resources */ = {isa = PBXBuildFile; fileRef = D9CF183493D4B59121ABA72E /* words_movies.json */; };
 		715BAF7EDB9B7BD6F32BA069 /* TriviaModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D6D63B261BC2597AE5557D2 /* TriviaModels.swift */; };
@@ -50,11 +50,9 @@
 		860B6D9FE7D7810DD09644A8 /* trivia_music.json in Resources */ = {isa = PBXBuildFile; fileRef = FAACEED40DD27EC50F111A8F /* trivia_music.json */; };
 		88EAC24B49085BA7DF7D5ED3 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B8218EDA9BD0406A3C63FBF /* Router.swift */; };
 		8923CB7548B854FF211ADDB7 /* trivia_history.json in Resources */ = {isa = PBXBuildFile; fileRef = 10821851697384D320C820B2 /* trivia_history.json */; };
-		89F2B4D931ACB7548EA7FC0E /* TrackingManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05D491A3A83976BFD28B88B1 /* TrackingManager.swift */; };
 		8BE7D8AE8EC9BDA11DE93A9D /* LevelCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F3FFB5E208125EB7055BF78 /* LevelCatalog.swift */; };
 		92AC64AEA5C4B562119E8173 /* MultiplayerResultsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F98AF533866EABABE489EC8 /* MultiplayerResultsView.swift */; };
 		97D3E462235709174838B251 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BBF3ACE34CFCE509510A3B0 /* Theme.swift */; };
-		98787280D0FDFEFFA5BE2914 /* GentleAdCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 965172F308214B8C3BD88E65 /* GentleAdCard.swift */; };
 		A7543A655FDDC9F41E10EA22 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE8B7A3815032C6D6F31B7F /* HomeView.swift */; };
 		AD71DD46FA6728804EEDB935 /* words_food.json in Resources */ = {isa = PBXBuildFile; fileRef = E0252DB5C69917DE5B242C92 /* words_food.json */; };
 		AFB1D171C4DA1103C656AE97 /* words_animals.json in Resources */ = {isa = PBXBuildFile; fileRef = DAEC57D185265A437660F796 /* words_animals.json */; };
@@ -66,17 +64,18 @@
 		D3168D4A65A174AF851FBCD6 /* trivia_movies.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C45DF678226EA4165DA972B /* trivia_movies.json */; };
 		D63005F6ED683A4E6B28E751 /* ThemeQuickPlaySheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = B785831F8C26CC2B9151A5DA /* ThemeQuickPlaySheet.swift */; };
 		DBCEB84ED4FFCB7BE623C8A7 /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13F5B4F580EB95F76E08295E /* RootView.swift */; };
+		DD3B7C098213C828AAA1A596 /* NativeAdCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7AB85AF85A11CF2E0B5E7EEA /* NativeAdCard.swift */; };
 		E2462B69F6845B67EEFC14EE /* AdsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFD7D806858BDA9F7144C3C /* AdsManager.swift */; };
 		E358167917410FA7F2B74CA4 /* MultiplayerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472668650FBA9C3105B9B35E /* MultiplayerService.swift */; };
 		E4185387D178F0ABCE03767F /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC176DF2D975A7E49E3F057 /* SoundManager.swift */; };
 		E55B72B4823FF103E56B6281 /* AppRoute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94E757BCB1C3AB396C7B8DA3 /* AppRoute.swift */; };
 		E61B47B8D8CAA4499B500376 /* HapticsPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 286B1F54DE3783AF3672344D /* HapticsPlayer.swift */; };
-		E7A83B79AB2CBA3456154980 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1051119DBB9A8D964BBA8B /* AppTrackingTransparency.framework */; };
 		EAFEF805B9C1884079DADD92 /* WordQuestActivity.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DB33CE3445C43BE76F00CD79 /* WordQuestActivity.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		EB0EFEE4800B9C19CC4696A7 /* GameCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD9BCE6BEAEFFD546745F621 /* GameCenterManager.swift */; };
-		ED5085299D8069466D3B1932 /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 68A3130EEC902464C6DEEF0A /* GoogleMobileAds */; };
+		ED5085299D8069466D3B1932 /* FBAudienceNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = 50EA7D45F46465DABCD2B26B /* FBAudienceNetwork */; };
 		F381C9D8A79AC6ECB02F0F01 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 712408E7D6F19939356CA0CD /* PrivacyInfo.xcprivacy */; };
 		F53653B15C01634AB54C89FA /* LevelMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7ACE8A7FA944CC0DADC29E0C /* LevelMapView.swift */; };
+		FCB93642A50878ABC3FA6999 /* ShareCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 88CDE9A359F2FC6CF3280BF8 /* ShareCardView.swift */; };
 		FDC0B9D04E3833059CA5F417 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C22EAE4A1ED4230863ACBD0 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -105,7 +104,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		05D491A3A83976BFD28B88B1 /* TrackingManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingManager.swift; sourceTree = "<group>"; };
 		06AA8FDECC3E60FCB871EDD4 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 		0A659B7231BC5FEA5E9FA0E8 /* WordSearchModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchModels.swift; sourceTree = "<group>"; };
 		0D3A6C62F495E2B3C42CEE50 /* TriviaActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaActivityAttributes.swift; sourceTree = "<group>"; };
@@ -134,28 +132,27 @@
 		504F3D4FEB38AA2D089B7B41 /* TriviaLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaLiveActivity.swift; sourceTree = "<group>"; };
 		517AC59F53F740EED2771A62 /* trivia_food.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = trivia_food.json; sourceTree = "<group>"; };
 		5362F8488E0D91BA800EDAA2 /* CoreHaptics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreHaptics.framework; path = System/Library/Frameworks/CoreHaptics.framework; sourceTree = SDKROOT; };
-		5B1051119DBB9A8D964BBA8B /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
 		5D6D63B261BC2597AE5557D2 /* TriviaModels.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaModels.swift; sourceTree = "<group>"; };
 		5F3FFB5E208125EB7055BF78 /* LevelCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelCatalog.swift; sourceTree = "<group>"; };
 		6454CDCA4A99DA631C99FF1D /* words_history.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_history.json; sourceTree = "<group>"; };
 		650418A2423E0783C8776AF4 /* ResultOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultOverlay.swift; sourceTree = "<group>"; };
 		6DC497B02065BC62BDECE02E /* WordQuestApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordQuestApp.swift; sourceTree = "<group>"; };
-		712408E7D6F19939356CA0CD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		712408E7D6F19939356CA0CD /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		74999D02D1C87DA06E18A211 /* WordSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchViewModel.swift; sourceTree = "<group>"; };
+		7AB85AF85A11CF2E0B5E7EEA /* NativeAdCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdCard.swift; sourceTree = "<group>"; };
 		7ACE8A7FA944CC0DADC29E0C /* LevelMapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelMapView.swift; sourceTree = "<group>"; };
 		7AED710385DBBFF490FF5F1B /* WordSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordSearchView.swift; sourceTree = "<group>"; };
 		7CE8B7A3815032C6D6F31B7F /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
-		85A2AA6B26F38C7BE7089E99 /* WordQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WordQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		85A2AA6B26F38C7BE7089E99 /* WordQuest.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = WordQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		88CDE9A359F2FC6CF3280BF8 /* ShareCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareCardView.swift; sourceTree = "<group>"; };
 		8DC176DF2D975A7E49E3F057 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		8F98AF533866EABABE489EC8 /* MultiplayerResultsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerResultsView.swift; sourceTree = "<group>"; };
 		8FFD7D806858BDA9F7144C3C /* AdsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdsManager.swift; sourceTree = "<group>"; };
 		924C794BD611A3437F977BC4 /* SeededGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeededGenerator.swift; sourceTree = "<group>"; };
 		94E757BCB1C3AB396C7B8DA3 /* AppRoute.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppRoute.swift; sourceTree = "<group>"; };
-		965172F308214B8C3BD88E65 /* GentleAdCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GentleAdCard.swift; sourceTree = "<group>"; };
 		96CCAA3849DF4ABE723E9575 /* MultiplayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiplayerViewModel.swift; sourceTree = "<group>"; };
 		976E6A28F5F0266F6DA05B20 /* WordQuest.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WordQuest.entitlements; sourceTree = "<group>"; };
 		98D8110E25B0A3FD07F576ED /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		A8132B70E6CC6349A683AED1 /* NativeAdContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeAdContainerView.swift; sourceTree = "<group>"; };
 		AC2474798926511DC43D8CB6 /* words_geography.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_geography.json; sourceTree = "<group>"; };
 		AC86F431B3B775ED90BD9E51 /* WordQuestActivityBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WordQuestActivityBundle.swift; sourceTree = "<group>"; };
 		AD9BCE6BEAEFFD546745F621 /* GameCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCenterManager.swift; sourceTree = "<group>"; };
@@ -172,6 +169,7 @@
 		DB33CE3445C43BE76F00CD79 /* WordQuestActivity.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = WordQuestActivity.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0252DB5C69917DE5B242C92 /* words_food.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = words_food.json; sourceTree = "<group>"; };
 		E3132AEE2477B209E9128369 /* HouseAd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HouseAd.swift; sourceTree = "<group>"; };
+		E6C5A8021EC6AC98A9AED886 /* SuggestedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestedCard.swift; sourceTree = "<group>"; };
 		EB19B10AFD80BDFC9BBA85AF /* ThemeSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThemeSelectView.swift; sourceTree = "<group>"; };
 		EB447F5736E16A58FF6F17FC /* trivia_animals.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = trivia_animals.json; sourceTree = "<group>"; };
 		F05F59A29322BF6343168FEF /* TriviaViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriviaViewModel.swift; sourceTree = "<group>"; };
@@ -186,8 +184,7 @@
 			files = (
 				2150794C660C255CE23F3928 /* GameKit.framework in Frameworks */,
 				06BE06BAD5D662040410776E /* CoreHaptics.framework in Frameworks */,
-				E7A83B79AB2CBA3456154980 /* AppTrackingTransparency.framework in Frameworks */,
-				ED5085299D8069466D3B1932 /* GoogleMobileAds in Frameworks */,
+				ED5085299D8069466D3B1932 /* FBAudienceNetwork in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,7 +319,7 @@
 			isa = PBXGroup;
 			children = (
 				8FFD7D806858BDA9F7144C3C /* AdsManager.swift */,
-				05D491A3A83976BFD28B88B1 /* TrackingManager.swift */,
+				7AB85AF85A11CF2E0B5E7EEA /* NativeAdCard.swift */,
 			);
 			path = Ads;
 			sourceTree = "<group>";
@@ -369,11 +366,11 @@
 		772DF91FDE35EB8FCEA9C1B3 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				965172F308214B8C3BD88E65 /* GentleAdCard.swift */,
-				A8132B70E6CC6349A683AED1 /* NativeAdContainerView.swift */,
 				650418A2423E0783C8776AF4 /* ResultOverlay.swift */,
 				4C22EAE4A1ED4230863ACBD0 /* SettingsView.swift */,
+				88CDE9A359F2FC6CF3280BF8 /* ShareCardView.swift */,
 				2DC56F60E11D9B900D5E0758 /* StarsView.swift */,
+				E6C5A8021EC6AC98A9AED886 /* SuggestedCard.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -449,7 +446,6 @@
 		D4F1FE9498665933585E45F7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5B1051119DBB9A8D964BBA8B /* AppTrackingTransparency.framework */,
 				5362F8488E0D91BA800EDAA2 /* CoreHaptics.framework */,
 				06AA8FDECC3E60FCB871EDD4 /* GameKit.framework */,
 			);
@@ -475,7 +471,7 @@
 			);
 			name = WordQuest;
 			packageProductDependencies = (
-				68A3130EEC902464C6DEEF0A /* GoogleMobileAds */,
+				50EA7D45F46465DABCD2B26B /* FBAudienceNetwork */,
 			);
 			productName = WordQuest;
 			productReference = 85A2AA6B26F38C7BE7089E99 /* WordQuest.app */;
@@ -508,11 +504,11 @@
 				LastUpgradeCheck = 1430;
 				TargetAttributes = {
 					7220E31253ED29937E752F2B = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = 84LN324B84;
 						ProvisioningStyle = Automatic;
 					};
 					8372491E060F0E556B62971D = {
-						DevelopmentTeam = "";
+						DevelopmentTeam = 84LN324B84;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -527,7 +523,7 @@
 			mainGroup = 8F80A4E942770C2384DF1067;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				5649934D5F958755676FE603 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+				AA1004A46361DC60A49FD15D /* XCRemoteSwiftPackageReference "FBAudienceNetwork" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 44ED28EC01B2842C250DF8B6 /* Products */;
@@ -578,7 +574,6 @@
 				E55B72B4823FF103E56B6281 /* AppRoute.swift in Sources */,
 				3EFD6E8F919F939893F7B642 /* ContentStore.swift in Sources */,
 				EB0EFEE4800B9C19CC4696A7 /* GameCenterManager.swift in Sources */,
-				98787280D0FDFEFFA5BE2914 /* GentleAdCard.swift in Sources */,
 				565E0FC8BDA0FD6AE1937384 /* HapticsManager.swift in Sources */,
 				E61B47B8D8CAA4499B500376 /* HapticsPlayer.swift in Sources */,
 				A7543A655FDDC9F41E10EA22 /* HomeView.swift in Sources */,
@@ -593,19 +588,20 @@
 				103E86CDFFB3B20FF204B9A1 /* MultiplayerRoomView.swift in Sources */,
 				E358167917410FA7F2B74CA4 /* MultiplayerService.swift in Sources */,
 				7DBB2151598D9BFFCB6D458E /* MultiplayerViewModel.swift in Sources */,
-				5DE6A96D5F1AA2A03A93475B /* NativeAdContainerView.swift in Sources */,
+				DD3B7C098213C828AAA1A596 /* NativeAdCard.swift in Sources */,
 				3ED6BBCF7C6A838C5AA7816F /* ResultOverlay.swift in Sources */,
 				DBCEB84ED4FFCB7BE623C8A7 /* RootView.swift in Sources */,
 				88EAC24B49085BA7DF7D5ED3 /* Router.swift in Sources */,
 				00A5492F956BDC6DE6DE3A27 /* SeededGenerator.swift in Sources */,
 				022C5536BDFAD01091E1EB96 /* SettingsStore.swift in Sources */,
 				FDC0B9D04E3833059CA5F417 /* SettingsView.swift in Sources */,
+				FCB93642A50878ABC3FA6999 /* ShareCardView.swift in Sources */,
 				E4185387D178F0ABCE03767F /* SoundManager.swift in Sources */,
 				4D72DADB7EFEA943D0917019 /* StarsView.swift in Sources */,
+				6599061879A7FC32451F0DD6 /* SuggestedCard.swift in Sources */,
 				97D3E462235709174838B251 /* Theme.swift in Sources */,
 				D63005F6ED683A4E6B28E751 /* ThemeQuickPlaySheet.swift in Sources */,
 				5538F3354746ECA70EFA9F6D /* ThemeSelectView.swift in Sources */,
-				89F2B4D931ACB7548EA7FC0E /* TrackingManager.swift in Sources */,
 				2DD99B23F7CA80225016D51A /* TriviaActivityAttributes.swift in Sources */,
 				0B27D55AFD427C225D3401F2 /* TriviaActivityManager.swift in Sources */,
 				715BAF7EDB9B7BD6F32BA069 /* TriviaModels.swift in Sources */,
@@ -678,7 +674,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 84LN324B84;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -738,7 +734,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 84LN324B84;
 				ENABLE_PREVIEWS = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -776,24 +772,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WordQuest/WordQuest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordQuest/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = WordQuest;
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "WordQuest uses Bluetooth to connect with nearby friends for local multiplayer trivia.";
-				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "WordQuest uses Bluetooth to connect with nearby friends for local multiplayer trivia.";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "WordQuest uses your local network to find nearby friends for local multiplayer trivia.";
-				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
-				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = NO;
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "WordQuest would like to tailor suggestions to how you play. This is entirely optional and never required to enjoy the app.";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wordquest.app;
+				MARKETING_VERSION = 1.0.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mamatiquest.app;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -806,24 +793,15 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = WordQuest/WordQuest.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordQuest/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = WordQuest;
-				INFOPLIST_KEY_NSBluetoothAlwaysUsageDescription = "WordQuest uses Bluetooth to connect with nearby friends for local multiplayer trivia.";
-				INFOPLIST_KEY_NSBluetoothPeripheralUsageDescription = "WordQuest uses Bluetooth to connect with nearby friends for local multiplayer trivia.";
-				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "WordQuest uses your local network to find nearby friends for local multiplayer trivia.";
-				INFOPLIST_KEY_NSSupportsLiveActivities = YES;
-				INFOPLIST_KEY_NSSupportsLiveActivitiesFrequentUpdates = NO;
-				INFOPLIST_KEY_NSUserTrackingUsageDescription = "WordQuest would like to tailor suggestions to how you play. This is entirely optional and never required to enjoy the app.";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wordquest.app;
+				MARKETING_VERSION = 1.0.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mamatiquest.app;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -832,7 +810,7 @@
 		A5D679CE6CB68967C6E0CB9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordQuestActivity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -840,8 +818,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wordquest.app.activity;
+				MARKETING_VERSION = 1.0.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mamatiquest.app.activity;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				SWIFT_VERSION = 5.0;
@@ -852,7 +830,7 @@
 		D3DC81A68E4EDC7B6E491AF5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = WordQuestActivity/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -860,8 +838,8 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.wordquest.app.activity;
+				MARKETING_VERSION = 1.0.3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.mamatiquest.app.activity;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				SWIFT_VERSION = 5.0;
@@ -902,21 +880,21 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		5649934D5F958755676FE603 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+		AA1004A46361DC60A49FD15D /* XCRemoteSwiftPackageReference "FBAudienceNetwork" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			repositoryURL = "https://github.com/facebook/FBAudienceNetwork";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 13.0.0;
+				minimumVersion = 6.22.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		68A3130EEC902464C6DEEF0A /* GoogleMobileAds */ = {
+		50EA7D45F46465DABCD2B26B /* FBAudienceNetwork */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 5649934D5F958755676FE603 /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
-			productName = GoogleMobileAds;
+			package = AA1004A46361DC60A49FD15D /* XCRemoteSwiftPackageReference "FBAudienceNetwork" */;
+			productName = FBAudienceNetwork;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

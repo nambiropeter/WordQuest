@@ -16,6 +16,8 @@ struct LevelMapView: View {
             ScrollView {
                 header
                 tierJumpBar(proxy: proxy)
+                NativeAdCard()
+                    .padding(.top, 4)
 
                 LazyVStack(spacing: 24, pinnedViews: [.sectionHeaders]) {
                     ForEach(0..<bandCount, id: \.self) { band in

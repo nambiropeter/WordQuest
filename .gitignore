@@ -16,3 +16,17 @@ DerivedData/
 
 # Simulator/screenshots produced while developing, not part of the app
 *.png.tmp
+
+# Code signing material — never commit a certificate, private key, or profile.
+*.p12
+*.cer
+*.certSigningRequest
+*.mobileprovision
+*.provisionprofile
+
+# Xcode "Archive / Distribute App" output — build artifacts, not source.
+*.xcarchive
+*.ipa
+
+# Local archive/export output from command-line distribution builds
+build/

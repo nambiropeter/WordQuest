@@ -39,9 +39,9 @@ final class GameCenterManager: NSObject, ObservableObject {
                     self.present(viewController)
                 } else if GKLocalPlayer.local.isAuthenticated {
                     self.isAuthenticated = true
-                    GKAccessPoint.shared.isActive = true
-                    GKAccessPoint.shared.location = .topLeading
-                    GKAccessPoint.shared.showHighlights = true
+                    // No floating access point: it sat over the screens' top-left
+                    // controls. Settings opens Game Center instead (see `open(_:)`).
+                    GKAccessPoint.shared.isActive = false
                 } else {
                     self.isAuthenticated = false
                     if let error {
@@ -58,6 +58,21 @@ final class GameCenterManager: NSObject, ObservableObject {
             .first(where: { $0.activationState == .foregroundActive })?
             .windows.first(where: \.isKeyWindow)?.rootViewController else { return }
         root.present(viewController, animated: true)
+    }
+
+    enum Destination {
+        case leaderboards, achievements, profile
+    }
+
+    /// Opens Game Center's own UI at `destination`, from Settings.
+    func open(_ destination: Destination) {
+        guard isAuthenticated else { return }
+        let state: GKGameCenterViewControllerState = switch destination {
+        case .leaderboards: .leaderboards
+        case .achievements: .achievements
+        case .profile: .localPlayerProfile
+        }
+        GKAccessPoint.shared.trigger(state: state) {}
     }
 
     func submitScore(_ score: Int, leaderboardID: String) {

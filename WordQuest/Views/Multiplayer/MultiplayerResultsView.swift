@@ -20,8 +20,8 @@ struct MultiplayerResultsView: View {
                             .foregroundStyle(.secondary)
                     }
 
-                    if let myScore = vm.myScore {
-                        ShareLink(item: shareText(myScore)) {
+                    if vm.myScore != nil {
+                        ShareCardButton(card: .multiplayer(rank: vm.myRank ?? 1, scores: vm.scores, myID: vm.myID)) {
                             Label("Share Result", systemImage: "square.and.arrow.up")
                                 .font(.system(.caption, design: .rounded, weight: .semibold))
                                 .padding(.horizontal, 14)
@@ -92,11 +92,6 @@ struct MultiplayerResultsView: View {
                 .padding(.bottom, 24)
             }
         }
-    }
-
-    private func shareText(_ score: PlayerScore) -> String {
-        let rank = vm.myRank ?? 1
-        return "I just finished #\(rank) of \(vm.scores.count) with \(score.score) points in a WordQuest local multiplayer trivia game! 🏆"
     }
 
     private func rankBadge(_ rank: Int) -> some View {

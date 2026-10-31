@@ -3,6 +3,7 @@ import SwiftUI
 struct WordSearchView: View {
     @StateObject private var vm: WordSearchViewModel
     @EnvironmentObject private var router: Router
+    @ObservedObject private var ads = AdsManager.shared
     private let level: Int
     private let theme: GameTheme
 
@@ -32,9 +33,10 @@ struct WordSearchView: View {
                     theme: theme,
                     level: level,
                     mode: .wordSearch,
-                    onReplay: { router.replaceTop(with: .wordSearchGame(theme, level)) },
-                    onNext: { router.replaceTop(with: .wordSearchGame(theme, level + 1)) },
-                    onHome: { router.popToRoot() }
+                    // Every 10th solo game shows an interstitial before the tapped navigation.
+                    onReplay: { AdsManager.shared.afterSoloGame(.wordSearch) { router.replaceTop(with: .wordSearchGame(theme, level)) } },
+                    onNext: { AdsManager.shared.afterSoloGame(.wordSearch) { router.replaceTop(with: .wordSearchGame(theme, level + 1)) } },
+                    onHome: { AdsManager.shared.afterSoloGame(.wordSearch) { router.popToRoot() } }
                 )
             }
         }
@@ -68,13 +70,25 @@ struct WordSearchView: View {
 
             Spacer()
 
-            Button {
-                vm.useHint()
-            } label: {
-                Label("\(vm.hintsRemaining)", systemImage: "lightbulb.fill")
-                    .font(.system(.subheadline, design: .rounded, weight: .semibold))
+            if vm.hintsRemaining == 0 && ads.rewardedAvailable {
+                // Out of hints: opt-in rewarded ad for one more. The clock pauses while it plays.
+                Button {
+                    vm.stopTimer()
+                    ads.showRewarded(onReward: { vm.grantHint() }, onFinished: { vm.startTimer() })
+                } label: {
+                    Label("+1", systemImage: "play.rectangle.fill")
+                        .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                }
+                .accessibilityLabel("Watch an ad for a hint")
+            } else {
+                Button {
+                    vm.useHint()
+                } label: {
+                    Label("\(vm.hintsRemaining)", systemImage: "lightbulb.fill")
+                        .font(.system(.subheadline, design: .rounded, weight: .semibold))
+                }
+                .disabled(vm.hintsRemaining == 0)
             }
-            .disabled(vm.hintsRemaining == 0)
         }
         .padding(.horizontal)
     }

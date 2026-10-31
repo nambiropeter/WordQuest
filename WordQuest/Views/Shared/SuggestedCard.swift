@@ -1,32 +1,15 @@
 import SwiftUI
 
-/// The single "suggested for you" slot on Home. Shows a real native ad once
-/// one has loaded; otherwise falls back to first-party house content, so
-/// the slot always looks intentional rather than sitting empty or popping
-/// in abruptly.
-struct GentleAdCard: View {
-    @ObservedObject var ads: AdsManager
+/// The single "suggested for you" slot on Home. First-party only — the app
+/// recommending an unexplored theme or local multiplayer, chosen entirely
+/// on-device from what the player has (and hasn't) already played. No
+/// third-party ad network is involved, so there is nothing to label "Ad".
+struct SuggestedCard: View {
     let houseAd: HouseAd
-    let onHouseAdTap: () -> Void
+    let onTap: () -> Void
 
     var body: some View {
-        Group {
-            if let nativeAd = ads.nativeAd {
-                NativeAdContainerView(nativeAd: nativeAd, tintColor: houseAd.tintColor)
-                    .frame(minHeight: 84)
-                    .background(Color(.secondarySystemGroupedBackground))
-                    .clipShape(RoundedRectangle(cornerRadius: 18))
-            } else {
-                houseAdButton
-            }
-        }
-        .padding(.horizontal)
-        .transition(.opacity)
-        .animation(.easeInOut(duration: 0.3), value: ads.nativeAd != nil)
-    }
-
-    private var houseAdButton: some View {
-        Button(action: onHouseAdTap) {
+        Button(action: onTap) {
             HStack(spacing: 14) {
                 Image(systemName: houseAd.icon)
                     .font(.title3)
@@ -63,6 +46,7 @@ struct GentleAdCard: View {
             }
         }
         .buttonStyle(.plain)
+        .padding(.horizontal)
         .accessibilityLabel("Suggested: \(houseAd.title)")
         .accessibilityHint(houseAd.subtitle)
     }

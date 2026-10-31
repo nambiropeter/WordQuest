@@ -1,10 +1,10 @@
 import SwiftUI
-import AppTrackingTransparency
 
 struct SettingsView: View {
     @EnvironmentObject private var settings: SettingsStore
     @EnvironmentObject private var progress: ProgressStore
-    @EnvironmentObject private var tracking: TrackingManager
+    @ObservedObject private var gameCenter = GameCenterManager.shared
+    @State private var showResetConfirmation = false
 
     var body: some View {
         Form {
@@ -30,31 +30,10 @@ struct SettingsView: View {
                 Toggle(isOn: $settings.showSuggestions) {
                     Label("Suggested For You", systemImage: "sparkles")
                 }
-                .onChange(of: settings.showSuggestions) { _, isOn in
-                    if isOn {
-                        AdsManager.shared.start()
-                        AdsManager.shared.loadAd(personalized: tracking.isAuthorized)
-                    }
-                }
-
-                Toggle(isOn: personalizedBinding) {
-                    Label("Personalized Suggestions", systemImage: "person.crop.circle.badge.checkmark")
-                }
-                .disabled(!settings.showSuggestions)
-
-                if tracking.status == .denied || tracking.status == .restricted {
-                    Label {
-                        Text("Tracking is off for WordQuest in iOS Settings → Privacy & Security → Tracking.")
-                    } icon: {
-                        Image(systemName: "hand.raised.slash")
-                    }
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-                }
             } header: {
-                Text("Ads & Personalization")
+                Text("Suggestions")
             } footer: {
-                Text("Suggestions are chosen from what you already play, right on your device — nothing is sent anywhere. If personalization is on, iOS will ask your permission before any ad is tailored using tracking, and you can change your mind here anytime.")
+                Text("Chosen from what you already play, right on your device — nothing is sent anywhere.")
             }
 
             Section {
@@ -67,16 +46,35 @@ struct SettingsView: View {
                 iCloudStatusFooter
             }
 
+            Section {
+                Button { gameCenter.open(.leaderboards) } label: {
+                    Label("Leaderboards", systemImage: "list.number")
+                }
+                Button { gameCenter.open(.achievements) } label: {
+                    Label("Achievements", systemImage: "trophy.fill")
+                }
+                Button { gameCenter.open(.profile) } label: {
+                    Label("Game Center Profile", systemImage: "person.crop.circle")
+                }
+            } header: {
+                Text("Game Center")
+            } footer: {
+                if !gameCenter.isAuthenticated {
+                    Text("Sign in to Game Center in the Settings app to see leaderboards and achievements.")
+                }
+            }
+            .disabled(!gameCenter.isAuthenticated)
+
             #if DEBUG
             Section("Debug") {
                 Button("Reset All Progress", role: .destructive) {
-                    progress.resetAll()
+                    showResetConfirmation = true
                 }
             }
             #endif
 
             Section("About") {
-                LabeledContent("Version", value: "1.0.0")
+                LabeledContent("Version", value: Self.appVersion)
                 Text("WordQuest features 1,000 Word Search levels and 1,000 Trivia levels across 8 themes: Animals, Geography, Movies & TV, Science, Sports, Food & Cooking, History, and Music.")
                     .font(.footnote)
                     .foregroundStyle(.secondary)
@@ -84,32 +82,45 @@ struct SettingsView: View {
         }
         .navigationTitle("Settings")
         .navigationBarTitleDisplayMode(.inline)
-        .onAppear { tracking.refreshStatus() }
+        .confirmationDialog(
+            "Reset all progress?",
+            isPresented: $showResetConfirmation,
+            titleVisibility: .visible
+        ) {
+            #if DEBUG
+            Button("Reset", role: .destructive) { progress.resetAll() }
+            #endif
+            Button("Cancel", role: .cancel) {}
+        } message: {
+            Text("This permanently deletes every level's stars, scores, and coins. This can't be undone.")
+        }
     }
 
-    private var personalizedBinding: Binding<Bool> {
-        Binding(
-            get: { settings.personalizedAdsEnabled && tracking.isAuthorized },
-            set: { newValue in
-                if newValue {
-                    settings.personalizedAdsEnabled = true
-                    tracking.requestIfNeeded()
-                } else {
-                    settings.personalizedAdsEnabled = false
-                }
-            }
-        )
+    /// Read from the bundle rather than hardcoded, so a version bump in the
+    /// project settings is the single place it has to change.
+    private static var appVersion: String {
+        Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? "—"
     }
 
     private var iCloudStatusFooter: some View {
         HStack(spacing: 6) {
-            Image(systemName: progress.iCloudAvailable ? "icloud.fill" : "icloud.slash")
+            Image(systemName: progress.iCloudAvailable ? "icloud.fill" : "iphone")
                 .foregroundStyle(progress.iCloudAvailable ? .blue : .secondary)
-            Text(progress.iCloudAvailable
-                 ? "Synced with your Apple ID — progress carries over to your other devices automatically."
-                 : "Sign in to iCloud in Settings to sync your progress across devices.")
+            Text(statusText)
         }
         .font(.footnote)
         .foregroundStyle(.secondary)
+    }
+
+    private var statusText: String {
+        if progress.iCloudAvailable {
+            return "Synced with your Apple ID — progress carries over to your other devices automatically."
+        }
+        // Don't tell the player to sign into iCloud when this build can't use
+        // it at all; that would be advice that changes nothing.
+        if ProgressStore.isCloudSyncEnabled {
+            return "Sign in to iCloud in Settings to sync your progress across devices."
+        }
+        return "Progress is saved on this device."
     }
 }
